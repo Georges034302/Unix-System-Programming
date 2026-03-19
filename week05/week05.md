@@ -9,7 +9,9 @@
 6. [The grep Command](#6-the-grep-command)  
 7. [grep with Regular Expressions](#7-grep-with-regular-expressions)  
 8. [grep Options and Output Control](#8-grep-options-and-output-control)  
-9. [The sed Stream Editor](#9-the-sed-stream-editor)  
+9. [The sed Stream Editor](#9-the-sed-stream-editor)
+10. [Bash Functions](#10-bash-functions)  
+
 
 Dataset used in examples:
 
@@ -414,6 +416,204 @@ sed -i 's/unix/linux/g' demo.txt
 sed -i.bak 's/unix/linux/g' demo.txt
 # edit file but keep a backup copy
 ```
+
+---
+
+# 10. Bash Functions
+
+## Definition
+
+A **function** in Bash is a reusable block of code that performs a specific task.
+
+Functions help to:
+
+- reduce repetition  
+- organise scripts  
+- improve readability  
+- enable modular scripting  
+
+---
+
+## 10.1 Basic Syntax
+
+```bash
+function_name() {
+    commands
+}
+```
+
+or
+
+```bash
+function function_name {
+    commands
+}
+```
+
+---
+
+## 10.2 Simple Function Example
+
+```bash
+greet() {
+    echo "Hello, Unix!"
+}
+
+greet
+```
+
+---
+
+## 10.3 Functions with Parameters
+
+Functions can accept arguments.
+
+```bash
+greet() {
+    echo "Hello, $1"
+}
+
+greet Georges
+```
+
+---
+
+## 10.4 Using Multiple Parameters
+
+```bash
+add() {
+    result=$(($1 + $2))
+    echo $result
+}
+
+add 5 3
+```
+
+---
+
+## 10.5 Return Values
+
+Bash functions return an exit status (0–255).
+
+```bash
+check_number() {
+    if [ $1 -gt 10 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+check_number 15
+echo $?
+```
+
+---
+
+## 10.6 Practical Example
+
+```bash
+search_file() {
+    grep -i "$1" "$2"
+}
+
+search_file unix demo.txt
+```
+---
+
+## 10.7 Advanced Function Examples
+
+### Example 1 — File Validation and Search
+
+```bash
+# This function safely searches for a pattern in a file.
+# It validates:
+# 1. Correct number of arguments
+# 2. File existence
+# Then performs a case-insensitive search with line numbers.
+
+search_safe() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: search_safe <pattern> <file>"
+        return 1
+    fi
+
+    if [ ! -f "$2" ]; then
+        echo "Error: File not found"
+        return 2
+    fi
+
+    grep -in "$1" "$2"
+}
+
+search_safe unix demo.txt
+```
+
+---
+
+### Example 2 — Logging Wrapper Function
+
+```bash
+# This function executes any command passed as arguments.
+# It logs:
+# - the command being executed
+# - success or failure status
+# Useful for debugging and automation scripts.
+
+log_and_run() {
+    echo "[INFO] Running: $@"
+    "$@"
+    status=$?
+
+    if [ $status -eq 0 ]; then
+        echo "[SUCCESS]"
+    else
+        echo "[ERROR] Exit code: $status"
+    fi
+
+    return $status
+}
+
+log_and_run ls -l
+log_and_run grep unix demo.txt
+```
+
+---
+
+### Example 3 — File Processing Pipeline
+
+```bash
+# This function processes a file by:
+# 1. Checking if the file exists
+# 2. Converting all text to uppercase
+# 3. Sorting the content
+# 4. Removing duplicate lines
+# Demonstrates combining multiple Unix tools in a pipeline.
+
+process_file() {
+    if [ ! -f "$1" ]; then
+        echo "File not found"
+        return 1
+    fi
+
+    cat "$1" | tr 'a-z' 'A-Z' | sort | uniq
+}
+
+process_file demo.txt
+```
+---
+
+## 10.8 Key Notes
+
+- `$1`, `$2`, ... represent positional arguments passed to the function  
+- `$#` represents the total number of arguments  
+- `$@` represents all arguments as separate values (preserves spacing)  
+- `$*` represents all arguments as a single string  
+- `$?` stores the exit status of the last executed command (0 = success)  
+- `return` sets the function exit status (0–255)  
+- Use `"$@"` when forwarding arguments to preserve correctness  
+- Always quote variables (`"$1"`, `"$@"`) to avoid word splitting issues  
+- Functions improve modularity, readability, and reuse in scripts  
 
 ---
 
