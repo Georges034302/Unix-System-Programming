@@ -150,6 +150,44 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 
 ---
 
+<details>
+<summary><strong>Week 05 — Regular Expressions, grep, and sed</strong></summary>
+
+### Topics covered
+
+- Regular expressions (regex)
+- Pattern matching and text filtering
+- Regex operators and quantifiers
+- Character classes and anchors
+- Grouping and alternation
+- Searching with `grep`
+- Extended regex with `grep -E`
+- grep options for output control
+- Stream editing with `sed`
+- Substitution, deletion, and in-place editing
+
+### Commands introduced
+
+- `grep`
+- `sed`
+
+### Concepts
+
+- Regex patterns
+- Quantifiers (`*`, `+`, `?`, `{n}`, `{n,m}`)
+- Character classes (`[a-z]`, `[0-9]`, `.`)
+- Anchors (`^`, `$`)
+- Grouping and alternation (`()`, `|`)
+- Stream editing
+
+### Data files used
+
+- `demo.txt`
+
+</details>
+
+---
+
 # Requirements
 
 To run the examples you need:
