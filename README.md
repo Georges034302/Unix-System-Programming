@@ -188,6 +188,47 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 
 ---
 
+<details>
+<summary><strong>Week 06 — Unix Filesystem Internals</strong></summary>
+
+### Topics covered
+
+- Filesystem internal structure
+- Partition layout (boot block, superblock, inode table, data blocks)
+- Inodes and file metadata
+- Block addressing (direct and indirect pointers)
+- File size calculation using block pointers
+- Directories and path resolution
+- Hard links and link counts
+- Symbolic (soft) links and differences from hard links
+
+### Commands introduced
+
+- `ls -i`
+- `stat`
+- `ln`
+
+### Concepts
+
+- Filesystem layout and components
+- Inode structure and metadata
+- Filename vs inode mapping
+- Direct, single, double, and triple indirect pointers
+- Directory as filename-to-inode mapping
+- Path resolution process
+- Hard links vs symbolic links
+- Link counts and file deletion behavior
+
+### Data files used
+
+- `demo.txt`
+
+</details>
+
+---
+
+
+
 # Requirements
 
 To run the examples you need:
