@@ -151,7 +151,7 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 ---
 
 <details>
-<summary><strong>Week 05 — Regular Expressions, grep, and sed</strong></summary>
+<summary><strong>Week 05 — Regular Expressions, grep, sed, and Bash Functions</strong></summary>
 
 ### Topics covered
 
@@ -165,6 +165,9 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 - grep options for output control
 - Stream editing with `sed`
 - Substitution, deletion, and in-place editing
+- Introduction to Bash functions
+- Function syntax, parameters, and return values
+- Using functions for modular scripting
 
 ### Commands introduced
 
@@ -179,6 +182,9 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 - Anchors (`^`, `$`)
 - Grouping and alternation (`()`, `|`)
 - Stream editing
+- Function definition and execution
+- Positional parameters (`$1`, `$2`, `$@`, `$#`)
+- Exit status and return values (`$?`, `return`)
 
 ### Data files used
 
@@ -226,8 +232,6 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 </details>
 
 ---
-
-
 
 # Requirements
 
