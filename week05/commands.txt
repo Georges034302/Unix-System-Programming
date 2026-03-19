@@ -1,0 +1,93 @@
+    1  clear
+    2  grep 'grep' demo.txt 
+    3  grep -i 'grep' demo.txt 
+    4  grep -in 'grep' demo.txt 
+    5  grep 'tutor' demo.txt 
+    6  grep -n 'tutor' demo.txt 
+    7  grep -in 'tutor' demo.txt 
+    8  grep -win 'tutor' demo.txt 
+    9  grep -in '\btutor\b' demo.txt 
+   10  grep -in -B 1 '\btutor\b' demo.txt 
+   11  grep -in -A 1 '\btutor\b' demo.txt 
+   12  clear
+   13  grep -in -B 3 -A 4 '\btutor\b' demo.txt 
+   14  grep -in -B 3 -A 3 '\btutor\b' demo.txt 
+   15  grep -in -C 3 '\btutor\b' demo.txt 
+   16  clear
+   17  grep '[A-Z]' demo.txt 
+   18  grep '^[A-Z]' demo.txt 
+   19  grep '[^A-Z]' demo.txt 
+   20  clear
+   21  grep '[0-9]' demo.txt 
+   22  grep '[0-9]{3,4}' demo.txt 
+   23  grep -E '[0-9]{3,4}' demo.txt 
+   24  egrep '[0-9]{3,4}' demo.txt 
+   25  clear
+   26  grep '^' demo.txt 
+   27  clear
+   28  grep '\^' demo.txt 
+   29  grep '^\^' demo.txt 
+   30  grep '$' demo.txt 
+   31  clear
+   32  grep '\$' demo.txt 
+   33  grep -n '\$' demo.txt 
+   34  grep -n '\$$' demo.txt 
+   35  grep -nE '\$$' demo.txt 
+   36  grep -nE '\$' demo.txt 
+   37  grep -nE '\s$' demo.txt 
+   38  clear
+   39  grep -nE '\s$' demo.txt 
+   40  grep -nE '\$$' demo.txt .
+   41  grep -nE '\$$' demo.txt 
+   42  clear
+   43  grep '^$' demo.txt 
+   44  grep -n '^$' demo.txt 
+   45  clear
+   46  grep -n '^$' demo.txt 
+   47  grep -nv '^$' demo.txt 
+   48  clear
+   49  grep '\' demo.txt 
+   50  grep '\\' demo.txt 
+   51  grep '*' demo.txt 
+   52  grep '^*' demo.txt 
+   53  clear
+   54  grep '#|:' demo.txt 
+   55  grep -E '#|:' demo.txt 
+   56  grep -E '[#:]' demo.txt 
+   57  grep -e '#' -e ':' demo.txt 
+   58  clear
+   59  grep -E '#.*:' demo.txt 
+   60  grep '#' demo.txt | grep ':'
+   61  clear
+   62  grep -R 'bash' ~/GitHub/Unix-System-Programming/
+   63  grep -Rn 'bash' ~/GitHub/Unix-System-Programming/
+   64  clear
+   65  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/
+   66  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | awk 'print $6'
+   67  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | awk '{print $6}'
+   68  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | awk '{print $5}'
+   69  clear
+   70  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | cut -d "/" -f 6
+   71  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | cut -d "/" -f 7
+   72  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | cut -d "/" -f 7 | grep '*.sh'
+   73  grep -Rl 'bash' ~/GitHub/Unix-System-Programming/ | cut -d "/" -f 7 | grep -E '*.sh'
+   74  clear
+   75  sed 's/grep/JAVA/' demo.txt 
+   76  clear
+   77  sed 's/grep/JAVA/i' demo.txt 
+   78  clear
+   79  sed 's/[0-9]/-/' demo.txt 
+   80  clear
+   81  sed 's/[0-9]/-/g' demo.txt 
+   82  clear
+   83  sed 's/[a-z]/-/gi' demo.txt 
+   84  clear
+   85  s -n '1,10p' demo.txt 
+   86  sed -n '1,10p' demo.txt 
+   87  sed '1,10d' demo.txt 
+   88  clear
+   89  aws ec2 describe-instances
+   90  sudo apt install awscli
+   91  aws configure
+   92  clear
+   93  history > commands.txt
