@@ -27,6 +27,7 @@
    4.2 [Basic String Operations](#42-basic-string-operations)  
    4.3 [String Functions and Methods](#43-string-functions-and-methods)  
    4.4 [String Formatting](#44-string-formatting)  
+   4.5 [Printf-Style Formatting with `%s`, `%d`, and `%f`](#45-printf-style-formatting-with-s-d-and-f)  
 
 5. [Control Flow and Logic](#5-control-flow-and-logic)  
    5.1 [The `if` Statement](#51-the-if-statement)  
@@ -37,9 +38,9 @@
    5.6 [Indentation and Block Structure](#56-indentation-and-block-structure)  
 
 6. [Interfacing with the System](#6-interfacing-with-the-system)  
-   6.1 [Command-Line Arguments with `sys.argv`](#61-command-line-arguments-with-sysargv)  
+   6.1 [Passing Arguments and Reading User Input](#61-passing-arguments-and-reading-user-input)  
    6.2 [Passing Arguments to Python Scripts](#62-passing-arguments-to-python-scripts)  
-   6.3 [Basic Script Interaction Patterns](#63-basic-script-interaction-patterns)  
+   6.3 [Reading User Input](#63-reading-user-input)  
 
 ---
 
@@ -1261,13 +1262,77 @@ value = 12.34567
 print(f"Formatted value: {value:.2f}")
 ```
 
-### Choosing a formatting style
+## 4.5 Printf-Style Formatting with `%s`, `%d`, and `%f`
 
-In modern Python:
+Before `format()` and f-strings became common, Python widely used printf-style formatting based on the `%` operator.
 
-- `print("a", var)` is fine for simple output
-- `format()` is useful for template-style formatting
-- f-strings are generally the most readable for everyday use
+This style is still worth understanding because you may see it in older scripts and legacy code.
+
+Common placeholders include:
+
+- `%s` for strings
+- `%d` for integers
+- `%f` for floating-point numbers
+
+### Example 1: formatting a string with `%s`
+
+```python
+# define a string value
+name = "Georges"
+
+# insert the string using %s
+print("Hello %s" % name)
+```
+
+### Example 2: formatting an integer with `%d`
+
+```python
+# define an integer value
+week = 7
+
+# insert the integer using %d
+print("This is week %d" % week)
+```
+
+### Example 3: formatting a float with `%f`
+
+```python
+# define a floating-point value
+pi = 3.14159265
+
+# insert the float using %f
+print("Pi is %f" % pi)
+```
+
+### Example 4: controlling decimal places with `%f`
+
+```python
+# define a floating-point number
+value = 12.34567
+
+# format with two decimal places
+print("Value = %.2f" % value)
+```
+
+### Example 5: formatting multiple values together
+
+```python
+# define values of different types
+name = "Georges"
+age = 45
+score = 92.5
+
+# format string, integer, and float in one output line
+print("Name: %s, Age: %d, Score: %.1f" % (name, age, score))
+```
+
+### Practical note
+
+Printf-style formatting still works, but in modern Python:
+
+- f-strings are usually the clearest option
+- `format()` is also common
+- `%` formatting is mainly encountered in older code bases
 
 ---
 
@@ -1526,28 +1591,87 @@ Poor indentation can change logic or produce syntax errors. In Python, indentati
 
 ## Definition
 
-Interfacing with the system means allowing a script to interact with its execution environment, especially through command-line arguments supplied when the script is run.
+Interfacing with the system means allowing a Python script to receive data from its execution environment rather than hardcoding all values inside the program.
 
-This is essential in Unix programming because scripts are often designed to accept input from the terminal.
+In introductory Unix scripting, the two most common interaction mechanisms are:
 
-## 6.1 Command-Line Arguments with `sys.argv`
+- passing arguments to the script at execution time
+- reading user input interactively while the script is running
 
-Python stores command-line arguments in the list `sys.argv`, which is provided by the `sys` module.
+Both approaches allow the same script to behave differently depending on what the user provides.
 
-Important rule:
+Conceptually:
 
-- `sys.argv[0]` is the script name
-- `sys.argv[1]` is the first user-supplied argument
-- `sys.argv[2]` is the second user-supplied argument
-- and so on
+```text
+user input to program
+   ├── command-line arguments
+   └── interactive keyboard input
+```
 
-### Example 1: print all arguments
+## 6.1 Passing Arguments and Reading User Input
+
+Python programs can obtain external input in two common ways.
+
+### 1. Command-line arguments
+
+These are values written after the script name when the script is launched.
+
+Example:
+
+```bash
+python3 script.py hello 25
+```
+
+In this case:
+
+- `script.py` is the script name
+- `hello` is the first user-supplied argument
+- `25` is the second user-supplied argument
+
+Python stores command-line arguments in `sys.argv`.
+
+### 2. Interactive user input
+
+This is input entered after the script starts running.
+
+Example:
 
 ```python
-# import the sys module to access argv
+# ask the user to type a value during execution
+name = input("Enter your name: ")
+print(name)
+```
+
+### Practical distinction
+
+```text
+command-line argument → provided before execution
+input()               → provided during execution
+```
+
+A good general rule is:
+
+- use command-line arguments when the script is designed to be run from the terminal with parameters
+- use `input()` when the script should prompt and interact with the user step by step
+
+## 6.2 Passing Arguments to Python Scripts
+
+Python stores command-line arguments in the list `sys.argv`, provided by the `sys` module.
+
+Important indexing rule:
+
+- `sys.argv[0]` is the script name
+- `sys.argv[1]` is the first user argument
+- `sys.argv[2]` is the second user argument
+- and so on
+
+### Example 1: print the whole argument list
+
+```python
+# import sys to access command-line arguments
 import sys
 
-# print the raw argument list
+# print the entire argv list
 print(sys.argv)
 ```
 
@@ -1557,16 +1681,38 @@ If run as:
 python3 demo.py hello 123
 ```
 
-a typical result is:
+Typical output:
 
 ```text
 ['demo.py', 'hello', '123']
 ```
 
-### Example 2: print the first argument
+### Example 2: print the script name
 
 ```python
-# import sys to access command-line arguments
+# import sys for argv access
+import sys
+
+# sys.argv[0] stores the script name
+print(sys.argv[0])
+```
+
+If run as:
+
+```bash
+python3 demo.py abc
+```
+
+Typical output:
+
+```text
+demo.py
+```
+
+### Example 3: print the first user argument
+
+```python
+# import sys so the script can read arguments
 import sys
 
 # print the first user-supplied argument
@@ -1579,120 +1725,73 @@ If run as:
 python3 demo.py Sydney
 ```
 
-the output is:
+Output:
 
 ```text
 Sydney
 ```
 
-## 6.2 Passing Arguments to Python Scripts
-
-Arguments are written after the script name when the command is executed.
-
-### Example 1: passing one argument
-
-```bash
-python3 mood.py good
-```
-
-Here:
-
-- `mood.py` is the script
-- `good` is the first user argument
-
-### Example 2: passing two arguments
-
-```bash
-python3 add.py 10 20
-```
-
-Here:
-
-- `10` becomes `sys.argv[1]`
-- `20` becomes `sys.argv[2]`
-
-### Example 3: running an executable script directly
-
-If the script has a shebang and executable permission:
-
-```bash
-./add.py 10 20
-```
-
-The arguments are still received through `sys.argv` in the same way.
-
-## 6.3 Basic Script Interaction Patterns
-
-This section combines arguments, validation, conversion, and logic.
-
-### Example 1: mood checker
+### Example 4: print multiple arguments
 
 ```python
-# import sys so the script can read arguments
+# import sys to access argv
 import sys
 
-# read the first command-line argument
-mood = sys.argv[1]
-
-# compare the argument and produce output
-if mood == "good":
-    print("I am happy")
-else:
-    print("Please leave me alone!")
+# print the first two user arguments
+print("First argument :", sys.argv[1])
+print("Second argument:", sys.argv[2])
 ```
 
-Run as:
+If run as:
 
 ```bash
-python3 mood.py good
+python3 demo.py red blue
 ```
 
-or:
+Output:
 
-```bash
-python3 mood.py bad
+```text
+First argument : red
+Second argument: blue
 ```
 
-### Example 2: safe argument count checking
+### Example 5: safe argument count checking
 
 ```python
 # import sys for argv access
 import sys
 
-# ensure the user supplied at least one argument
+# check that at least one user argument was supplied
 if len(sys.argv) < 2:
     print("Usage: python3 script.py <name>")
     exit()
 
-# read the provided name
+# read the first argument safely
 name = sys.argv[1]
 
-# print a personalised greeting
+# print a greeting
 print(f"Hello {name}")
 ```
 
-This pattern is important because directly accessing `sys.argv[1]` without checking length may cause an error if no argument is supplied.
+This pattern is important because directly accessing `sys.argv[1]` without validating length may cause an index error.
 
-### Example 3: add two integers from the command line
+### Example 6: adding two integers from the command line
 
 ```python
-# import sys for command-line argument access
+# import sys to access command-line arguments
 import sys
 
-# verify that exactly two numbers were supplied
+# validate that two numeric arguments are supplied
 if len(sys.argv) < 3:
     print("Usage: python3 add.py <num1> <num2>")
     exit()
 
-# convert command-line strings into integers
+# convert argument strings into integers
 a = int(sys.argv[1])
 b = int(sys.argv[2])
 
-# compute the sum
-result = a + b
-
-# print the formatted result
-print(f"The sum of {a} and {b} is {result}")
+# compute and print the sum
+print(f"The sum of {a} and {b} is {a + b}")
 ```
 
 Run as:
@@ -1701,21 +1800,21 @@ Run as:
 python3 add.py 12 30
 ```
 
-### Example 4: classify a numeric argument
+### Example 7: classifying a numeric argument
 
 ```python
 # import sys for argument handling
 import sys
 
-# check that one numeric argument is present
+# check that one numeric argument exists
 if len(sys.argv) < 2:
     print("Usage: python3 classify.py <number>")
     exit()
 
-# convert the first argument to an integer
+# convert the first argument from string to integer
 number = int(sys.argv[1])
 
-# classify the number with conditional logic
+# classify using conditional logic
 if number > 0:
     print("Positive")
 elif number == 0:
@@ -1724,35 +1823,166 @@ else:
     print("Negative")
 ```
 
-### Example 5: even-or-odd checker
+### Example 8: mood checker with sys.argv
 
 ```python
-# import sys to read command-line input
+# import sys to read the command-line value
 import sys
 
-# validate argument count
+# verify that one mood argument was supplied
 if len(sys.argv) < 2:
-    print("Usage: python3 parity.py <number>")
+    print("Usage: python3 mood.py <good|bad>")
     exit()
 
-# convert text input into an integer
-value = int(sys.argv[1])
+# read the mood argument
+mood = sys.argv[1]
 
-# use modulus to test parity
-if value % 2 == 0:
-    print(f"{value} is even")
+# produce output based on the provided argument
+if mood == "good":
+    print("I am happy")
 else:
-    print(f"{value} is odd")
+    print("Please leave me alone!")
 ```
 
-This is a useful model because it combines several concepts from the week:
+### Example 9: running executable scripts directly with arguments
 
-- command-line arguments
-- integer conversion
-- arithmetic operators
-- comparison operators
-- `if-else` logic
-- formatted output
+If the script has a shebang line and executable permission, it can also be run as:
+
+```bash
+./script.py hello 25
+```
+
+The arguments are still received through `sys.argv` in exactly the same way.
+
+## 6.3 Reading User Input
+
+Interactive input allows the script to pause and wait for the user to type a value.
+
+Python uses the `input()` function for this purpose.
+
+### Important rule about `input()`
+
+`input()` always returns a string.
+
+That means:
+
+- text input can be used directly as a string
+- numeric input must usually be converted using `int()` or `float()`
+
+### Example 1: reading a name
+
+```python
+# ask the user to enter a name
+name = input("Enter your name: ")
+
+# print the entered value
+print(f"Hello {name}")
+```
+
+### Example 2: showing that input is returned as text
+
+```python
+# read a value from the keyboard
+value = input("Enter something: ")
+
+# print the value and its type
+print(value)
+print(type(value))
+```
+
+Even if the user types `25`, the returned value is still a string.
+
+### Example 3: reading and converting an integer
+
+```python
+# prompt the user for a number
+value = input("Enter a number: ")
+
+# convert the returned string to an integer
+number = int(value)
+
+# perform a calculation with the integer
+print(f"Double of {number} is {number * 2}")
+```
+
+### Example 4: reading and converting in one line
+
+```python
+# read input and convert to integer immediately
+age = int(input("Enter your age: "))
+
+# print the converted value
+print(f"You entered age {age}")
+```
+
+### Example 5: combining input() with conditional logic
+
+```python
+# read age from the user and convert to integer
+age = int(input("Enter your age: "))
+
+# classify the input using if-else
+if age >= 18:
+    print("You are an adult")
+else:
+    print("You are a minor")
+```
+
+### Example 6: reading two inputs and computing a result
+
+```python
+# read two numbers from the user
+a = int(input("Enter the first number: "))
+b = int(input("Enter the second number: "))
+
+# calculate and print the sum
+print(f"The sum is {a + b}")
+```
+
+### Example 7: reading text and validating allowed values
+
+```python
+# read a command string from the user
+command = input("Enter command (start/stop): ")
+
+# validate the typed command
+if command == "start":
+    print("System starting")
+elif command == "stop":
+    print("System stopping")
+else:
+    print("Unknown command")
+```
+
+### Example 8: combining string input with formatting
+
+```python
+# read first and last name separately
+first_name = input("Enter first name: ")
+last_name = input("Enter last name: ")
+
+# combine values into a formatted output string
+print(f"Full name: {first_name} {last_name}")
+```
+
+### Example 9: argument input vs interactive input
+
+Compare these two approaches:
+
+```python
+# command-line argument version
+import sys
+print(sys.argv[1])
+```
+
+```python
+# interactive input version
+value = input("Enter a value: ")
+print(value)
+```
+
+The first expects the value when the script is launched.  
+The second waits and asks for the value during execution.
 
 ---
 
