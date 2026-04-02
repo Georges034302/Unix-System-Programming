@@ -1,366 +1,284 @@
 # Week 7 — Introduction to Python for Unix Systems Programming
 
 ## Table of Contents
-1. [Introduction to Python in Unix Systems](#1-introduction-to-python-in-unix-systems)  
-   1.1 [Why Python in Systems Programming](#11-why-python-in-systems-programming)  
-   1.2 [Python vs Shell: Roles and Boundaries](#12-python-vs-shell-roles-and-boundaries)  
-
-2. [Getting Started with Python](#2-getting-started-with-python)  
-   2.1 [Running Python Scripts](#21-running-python-scripts)  
-   2.2 [Shebang and Execution Permissions](#22-shebang-and-execution-permissions)  
-   2.3 [Script Structure and Execution Flow](#23-script-structure-and-execution-flow)  
-
-3. [Core Python Syntax](#3-core-python-syntax)  
-   3.1 [Printing and Basic Output](#31-printing-and-basic-output)  
-   3.2 [Variables and Object Model](#32-variables-and-object-model)  
-   3.3 [Strings and Basic Operations](#33-strings-and-basic-operations)  
-
-4. [Data Types and Expressions](#4-data-types-and-expressions)  
-   4.1 [Primitive Types](#41-primitive-types)  
-   4.2 [Mutable vs Immutable Objects](#42-mutable-vs-immutable-objects)  
-   4.3 [Operators and Expressions](#43-operators-and-expressions)  
-   4.4 [Identity vs Equality (`is` vs `==`)](#44-identity-vs-equality-is-vs-)  
-
+1. [Python in Unix Systems](#1-python-in-unix-systems)  
+2. [Core Python Foundations](#2-core-python-foundations)  
+   2.1 [Basic Output](#21-basic-output)  
+   2.2 [Variables and Object Model](#22-variables-and-object-model)  
+   2.3 [Primitive Data Types and Expressions](#23-primitive-data-types-and-expressions)  
+   2.4 [Mutable and Immutable Objects](#24-mutable-and-immutable-objects)  
+3. [Operators and Expressions](#3-operators-and-expressions)  
+   3.1 [Arithmetic Operators](#31-arithmetic-operators)  
+   3.2 [Assignment Operators](#32-assignment-operators)  
+   3.3 [Comparison Operators](#33-comparison-operators)  
+   3.4 [Logical Operators](#34-logical-operators)  
+   3.5 [Membership Operators](#35-membership-operators)  
+   3.6 [Identity vs Equality](#36-identity-vs-equality)  
+4. [Strings and String Formatting](#4-strings-and-string-formatting)  
 5. [Control Flow and Logic](#5-control-flow-and-logic)  
-   5.1 [Conditional Statements](#51-conditional-statements)  
-   5.2 [Indentation and Block Structure](#52-indentation-and-block-structure)  
-
 6. [Interfacing with the System](#6-interfacing-with-the-system)  
-   6.1 [Command-Line Arguments (`sys.argv`)](#61-command-line-arguments-sysargv)  
-   6.2 [Passing Arguments to Python Scripts](#62-passing-arguments-to-python-scripts)  
-   6.3 [Basic Script Interaction Patterns](#63-basic-script-interaction-patterns)  
-
-7. [Python vs Bash: Practical Mapping](#7-python-vs-bash-practical-mapping)  
-
-8. [Choosing the Right Tool](#8-choosing-the-right-tool)  
-   8.1 [When to Use Bash](#81-when-to-use-bash)  
-   8.2 [When to Use Python](#82-when-to-use-python)  
-   8.3 [Combining Bash and Python Effectively](#83-combining-bash-and-python-effectively)  
 
 ---
 
-# 1. Introduction to Python in Unix Systems
+# 1. Python in Unix Systems
 
-Python extends Unix scripting by providing structured programming, better abstraction, and stronger data handling capabilities.
-
-## 1.1 Why Python in Systems Programming
-
-Shell scripting is effective for:
-- command orchestration
-- pipelines
-- simple automation
-
-However, it becomes limited when:
-- logic becomes nested
-- data structures are required
-- scripts scale in size
-
-Python addresses these limitations by:
-- enabling structured logic
-- supporting complex data types
-- improving readability and maintainability
-
-## 1.2 Python vs Shell: Roles and Boundaries
+Python complements shell scripting by enabling structured logic, better abstraction, and scalable scripting.
 
 ```text
-Shell → system interaction (commands, pipes, automation)
-Python → computation, logic, data processing
+Shell → orchestration (commands, pipes)
+Python → logic and data processing
 ```
 
 ---
 
-# 2. Getting Started with Python
+# 2. Core Python Foundations
 
-## 2.1 Running Python Scripts
-
-```bash
-# run script using interpreter
-python script.py
-```
-
-## 2.2 Shebang and Execution Permissions
+## 2.1 Basic Output
 
 ```python
-# shebang tells OS which interpreter to use
-#!/usr/bin/env python3
-
-print("Hello")
-```
-
-```bash
-# make script executable
-chmod +x script.py
-
-# execute directly
-./script.py
-```
-
-## 2.3 Script Structure and Execution Flow
-
-```text
-Python executes sequentially:
-line 1 → line 2 → line 3
-
-Control flow modifies execution:
-if / loops / functions
-```
-
----
-
-# 3. Core Python Syntax
-
-## 3.1 Printing and Basic Output
-
-```python
-# print string
+# print a simple message
 print("Hello World")
 
-# print multiple values (auto space separated)
+# print multiple values (auto spacing)
 print("Unix", "Systems", "Programming")
 ```
 
-## 3.2 Variables and Object Model
+## 2.2 Variables and Object Model
 
 ```python
-# assign variable
+# variables store references to objects
 x = 10
+y = x  # y points to same object
 
-# assign another reference to same object
-y = x
-
-# modifying x creates new object (immutable type)
+# modifying x creates a new object (integers are immutable)
 x = x + 5
 
-print(x, y)
-# y remains original reference
+print(x)  # 15
+print(y)  # 10
 ```
 
-## 3.3 Strings and Basic Operations
+## 2.3 Primitive Data Types and Expressions
 
 ```python
-# concatenation
-a = "Unix"
-b = "Programming"
-print(a + " " + b)
-
-# repetition
-print(a * 3)
-
-# indexing
-print(a[0])  # first character
-
-# slicing
-print(a[0:3])  # substring
-```
-
----
-
-# 4. Data Types and Expressions
-
-## 4.1 Primitive Types
-
-```python
-# numeric types
+# integer
 a = 10
+
+# float
 b = 3.14
 
 # string
 c = "text"
+
+# expression evaluation
+result = a + 5 * 2
+print(result)  # precedence applies
 ```
 
-## 4.2 Mutable vs Immutable Objects
+## 2.4 Mutable and Immutable Objects
 
 ```python
-# immutable example
-x = "hello"
-x = x + " world"  # new object created
+# immutable example (string)
+s = "hello"
+s2 = s
 
-# mutable example
+# modifying creates new object
+s = s + " world"
+
+print(s)   # new object
+print(s2)  # unchanged
+
+# mutable example (list)
 lst = [1, 2]
-lst.append(3)  # modifies existing object
+lst2 = lst
+
+lst.append(3)
+
+print(lst)   # modified
+print(lst2)  # same object affected
 ```
 
-## 4.3 Operators and Expressions
+---
 
-### Arithmetic Operators
+# 3. Operators and Expressions
+
+## 3.1 Arithmetic Operators
 
 ```python
-# demonstrate arithmetic
+# arithmetic operations
 a = 7
 b = 2
 
-print(a + b)   # addition → 9
-print(a - b)   # subtraction → 5
-print(a * b)   # multiplication → 14
-print(a / b)   # division → 3.5
-print(a // b)  # floor division → 3
-print(a % b)   # remainder → 1
-print(a ** b)  # exponent → 49
+print(a + b)   # addition
+print(a - b)   # subtraction
+print(a * b)   # multiplication
+print(a / b)   # division
+print(a // b)  # floor division
+print(a % b)   # modulus
+print(a ** b)  # exponentiation
 ```
 
-### Assignment Operators
+## 3.2 Assignment Operators
 
 ```python
-# compound assignments
+# compound assignment
 x = 10
-x += 5   # x = x + 5
-x *= 2   # x = x * 2
+
+x += 5   # add and assign
+x *= 2   # multiply and assign
+
 print(x)
 ```
 
-### Comparison Operators
+## 3.3 Comparison Operators
 
 ```python
-# comparisons return boolean
+# comparison operations
 x = 5
 y = 10
 
-print(x == y)  # False
-print(x != y)  # True
-print(x < y)   # True
-print(x > y)   # False
+print(x == y)  # equality
+print(x != y)  # not equal
+print(x < y)
+print(x > y)
+print(x <= y)
+print(x >= y)
 ```
 
-### Logical Operators
+## 3.4 Logical Operators
 
 ```python
 # logical evaluation
 a = True
 b = False
 
-print(a and b)  # False
-print(a or b)   # True
-print(not a)    # False
+print(a and b)  # both must be True
+print(a or b)   # one must be True
+print(not a)    # negation
 ```
 
-### Membership Operators
+## 3.5 Membership Operators
 
 ```python
-# check membership in list
+# check if element exists
 lst = [1, 2, 3]
 
-print(2 in lst)     # True
-print(5 not in lst) # True
+print(2 in lst)      # True
+print(5 not in lst)  # True
 ```
 
-## 4.4 Identity vs Equality (`is` vs `==`)
+## 3.6 Identity vs Equality
 
 ```python
-# demonstrate identity vs equality
+# identity vs equality
 a = [1, 2]
 b = [1, 2]
 c = a
 
-print(a == b)  # True (values equal)
-print(a is b)  # False (different objects)
-print(a is c)  # True (same object)
+print(a == b)  # same values
+print(a is b)  # different objects
+print(a is c)  # same object
+```
+
+---
+
+# 4. Strings and String Formatting
+
+```python
+# basic string
+s = "Unix"
+
+# concatenation
+print(s + " Programming")
+
+# repetition
+print(s * 2)
+
+# string methods
+print(s.lower())
+print(s.upper())
+print(s.replace("Unix", "Python"))
+
+# formatting using f-string
+name = "Georges"
+print(f"Hello {name}")
+
+# format function
+print("Hello {}".format(name))
 ```
 
 ---
 
 # 5. Control Flow and Logic
 
-## 5.1 Conditional Statements
+## If Statement Variants
 
 ```python
-# simple condition
-x = 15
+# if-else
+x = 10
+if x > 5:
+    print("Greater")
+else:
+    print("Smaller")
 
-if x > 10:
-    print("x is greater than 10")
-```
-
-## 5.2 Indentation and Block Structure
-
-```python
-# indentation defines scope
-x = 5
-
+# cascaded if-else
+x = 0
 if x > 0:
     print("Positive")
-    print("Still inside block")
+elif x == 0:
+    print("Zero")
+else:
+    print("Negative")
 
-print("Outside block")
+# nested if
+x = 10
+if x > 5:
+    if x < 20:
+        print("Between 5 and 20")
+
+# match (Python 3.10+)
+value = 2
+match value:
+    case 1:
+        print("One")
+    case 2:
+        print("Two")
+    case _:
+        print("Other")
 ```
 
 ---
 
 # 6. Interfacing with the System
 
-## 6.1 Command-Line Arguments (`sys.argv`)
+## 6.1 Command-Line Arguments
 
 ```python
-# print all arguments
+# access command-line arguments
 import sys
 
-print(sys.argv)  # list of arguments
+print(sys.argv)
 ```
 
-## 6.2 Passing Arguments to Python Scripts
+## 6.2 Passing Arguments
 
 ```bash
-# run script with arguments
 python script.py 10 20
 ```
 
-## 6.3 Basic Script Interaction Patterns
+## 6.3 Script Example
 
 ```python
-# program that processes arguments safely
+# process arguments
 import sys
 
-# ensure correct usage
 if len(sys.argv) < 3:
-    print("Usage: script.py <num1> <num2>")
+    print("Usage: script.py <a> <b>")
     exit()
 
-# parse inputs
 a = int(sys.argv[1])
 b = int(sys.argv[2])
 
-# perform operation
-result = a + b
-
-print("Sum =", result)
-```
-
----
-
-# 7. Python vs Bash: Practical Mapping
-
-```text
-Python                Bash
----------------------------------------
-print("hello")        echo hello
-x = 10                X=10
-if x > 5:             if [ $x -gt 5 ]
-sys.argv[1]           $1
-```
-
----
-
-# 8. Choosing the Right Tool
-
-## 8.1 When to Use Bash
-
-- file operations
-- command chaining
-- automation scripts
-
-## 8.2 When to Use Python
-
-- data processing
-- complex logic
-- reusable scripts
-
-## 8.3 Combining Bash and Python Effectively
-
-```text
-Shell script:
-- invokes system tools
-
-Python:
-- processes outputs and logic
+print("Sum =", a + b)
 ```
 
 ---
