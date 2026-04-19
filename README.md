@@ -233,6 +233,88 @@ The material introduces Unix fundamentals, command-line tools, file systems, and
 
 ---
 
+<details>
+<summary><strong>Week 07 — Introduction to Python for Unix Systems Programming</strong></summary>
+
+### Topics covered
+
+- Python as a Unix scripting language
+- Running Python scripts in Unix environments
+- Shebang and execution permissions
+- Python script structure and execution flow
+- Variables and Python object model
+- Primitive data types and expressions
+- Mutable vs immutable objects
+- Arithmetic, assignment, comparison, and logical operators
+- Membership and identity operators
+- Strings and string manipulation
+- String slicing, indexing, and methods
+- String formatting (`print`, `format`, f-strings, printf-style)
+- Control flow using `if`, `elif`, and `else`
+- Nested conditional logic
+- Switch-style control using `match`
+- Indentation and block structure in Python
+- Passing arguments to scripts using `sys.argv`
+- Reading user input using `input()`
+
+### Concepts
+
+- Python as a complement to Bash scripting
+- Sequential execution model
+- Variable binding and object references
+- Expression evaluation and operator precedence
+- String immutability and transformation
+- Structured decision logic
+- Command-line arguments vs interactive input
+- Script portability using shebang
+
+</details>
+
+---
+
+<details>
+<summary><strong>Week 08 — Loops and Regular Expressions in Python</strong></summary>
+
+### Topics covered
+
+- Iteration over sequences using `for`
+- Sentinel-controlled loops using `while`
+- Counting and accumulation patterns
+- Processing continuous input streams
+- Reading multiple lines of input
+- Introduction to regular expressions (regex)
+- Pattern matching concepts
+- The `re` module in Python
+- Regex metacharacters and quantifiers
+- Anchors, grouping, and alternation
+- Special sequences (`\d`, `\w`, `\s`)
+- Greedy vs non-greedy matching
+- Word boundaries and operator precedence
+- Core regex functions:
+  - `re.search`
+  - `re.findall`
+  - `re.split`
+  - `re.sub`
+  - `re.match`
+- Working with match objects
+- Line-based processing from STDIN
+
+### Concepts
+
+- Iterative processing of text and data
+- Loop control and termination conditions
+- Accumulators and counters
+- Stream processing model (input → process → output)
+- Pattern-based text matching
+- Extracting structured data from text
+- Transforming and sanitising text
+- Using regex for validation and parsing
+- Building reusable text-processing scripts
+
+</details>
+
+---
+
 # Requirements
 
 To run the examples you need:
