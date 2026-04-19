@@ -315,6 +315,45 @@ The material introduces Unix fundamentals, command-line tools, file systems, Bas
 
 ---
 
+<details>
+<summary><strong>Week 09 — Python Data Structures</strong></summary>
+
+### Topics covered
+
+- Introduction to Python data structures
+- Built-in data types and their classification
+- Mutable vs immutable data types
+- Lists: creation, indexing, slicing, iteration, and operations
+- Sets: uniqueness, membership testing, and set operations
+- Tuples: immutability and structured grouping of values
+- Dictionaries: key-value storage, access, update, and iteration
+- Nested and advanced data structures:
+  - Lists of lists
+  - Lists of dictionaries
+  - Dictionaries of lists
+  - Dictionaries of dictionaries
+- Data modelling using combinations of structures
+- Processing structured input data
+- Splitting input records into fields
+- Aggregating and summarising data
+- Transforming structured data into reports
+
+### Concepts
+
+- Data structures as collections of values
+- Choosing the appropriate structure for a task
+- Sequence vs mapping types
+- Mutability and its impact on updates
+- Iterative processing of collections
+- Structured data representation
+- Aggregation patterns (counting, summing, grouping)
+- Nested data modelling
+- Dictionary-based aggregation techniques
+
+</details>
+
+---
+
 # Requirements
 
 To run the examples you need:
