@@ -337,6 +337,8 @@ The material introduces Unix fundamentals, command-line tools, file systems, Bas
 - Splitting input records into fields
 - Aggregating and summarising data
 - Transforming structured data into reports
+- Reading input from files using command-line arguments (`sys.argv`)
+- Line-by-line file processing and transformation
 
 ### Concepts
 
@@ -349,7 +351,9 @@ The material introduces Unix fundamentals, command-line tools, file systems, Bas
 - Aggregation patterns (counting, summing, grouping)
 - Nested data modelling
 - Dictionary-based aggregation techniques
-
+- File input processing model:
+  - open → read → split → convert → aggregate → report
+- Efficient line-by-line file handling
 </details>
 
 ---
