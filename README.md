@@ -5,7 +5,7 @@ Unix Systems Programming lecture materials and demos.
 
 This repository contains **lecture notes, examples, and scripts** used in the subject **32547 – Unix Systems Programming**.
 
-The material introduces Unix fundamentals, command-line tools, file systems, and Bash scripting.
+The material introduces Unix fundamentals, command-line tools, file systems, Bash and Python scripting.
 
 ---
 
