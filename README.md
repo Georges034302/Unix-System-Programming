@@ -322,7 +322,8 @@ To run the examples you need:
 - Linux / macOS terminal or WSL
 - Bash shell
 - Basic Unix utilities installed (standard on Unix systems)
-
+- Python 3.10 or higher
+  
 ---
 
 #### 👤 <sub><em>Author: *Georges Bou Ghantous*</em></sub>
