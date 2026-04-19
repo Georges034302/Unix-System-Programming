@@ -62,7 +62,9 @@
    7.3 [Aggregating Data](#73-aggregating-data)  
    7.4 [Data Transformation and Reporting](#74-data-transformation-and-reporting)  
    7.5 [Example 1 — Basic Data Processing](#75-example-1--basic-data-processing)  
-   7.6 [Example 2 — Printer Job Analysis (Dictionary of Lists)](#76-example-2--printer-job-analysis-dictionary-of-lists)  
+   7.6 [Example 2 — Printer Job Analysis (Dictionary of Lists)](#76-example-2--printer-job-analysis-dictionary-of-lists) \
+   7.7 [Example 3 — Reading and Splitting File Input (from Argument)](#77-example-3--reading-and-splitting-file-input-from-argument)  
+   7.8 [Example 4 — Full File-Based Aggregation (Printer Analysis)](#78-example-4--full-file-based-aggregation-printer-analysis)
 
 ---
 
@@ -1310,6 +1312,163 @@ This example is important because it demonstrates:
 - dictionary-based aggregation
 - dictionary of lists as a practical data structure
 
+## 7.7 Example 3 — Reading and Splitting File Input (from Argument)
+
+### Explanation
+
+In Python, command-line arguments are accessed using the `sys.argv` list.
+
+- `sys.argv[0]` → script name  
+- `sys.argv[1]` → first argument, which is typically the input file  
+
+When the script is executed as:
+
+    python3 script.py data.txt
+
+the file `data.txt` becomes available inside the program as `sys.argv[1]`.
+
+Python opens the file using:
+
+    fin = open(sys.argv[1])
+
+This allows the program to read the file contents.
+
+When iterating over the file:
+
+    for line in fin:
+
+Python reads the file **line by line**, which is efficient and avoids loading the entire file into memory.
+
+Each line ends with a newline character (`\n`), which is usually removed before processing:
+
+    line = line.rstrip('\n')
+
+Once cleaned, the line can be split into structured fields.
+
+---
+
+### Example — Reading and Splitting File Input
+```python
+    #!/usr/bin/env python3
+
+    import sys
+    import re
+
+    # create an empty dictionary (not used yet, but prepares structure)
+    printers = {}
+
+    # open file passed as argument
+    fin = open(sys.argv[1])
+
+    # read file line by line
+    for line in fin:
+        # remove trailing newline
+        line = line.rstrip('\n')
+
+        # split line into fields using comma
+        fields = re.split(',', line)
+
+        # print extracted fields
+        print(fields)
+
+    # close file after reading
+    fin.close()
+```
+### What this demonstrates
+
+- Reading a file passed as a command-line argument  
+- Processing input line by line  
+- Cleaning input data (`rstrip`)  
+- Splitting structured records into fields  
+- Preparing data for further processing (aggregation, analysis)
+
+## 7.8 Example 4 — Full File-Based Aggregation (Printer Analysis)
+
+### Explanation
+
+In Python, command-line arguments are accessed using the `sys.argv` list.
+
+- `sys.argv[0]` → script name  
+- `sys.argv[1]` → first argument, which in this case is the input file name  
+
+If the script is run as:
+
+    python3 script.py spool.csv
+
+then `spool.csv` becomes available inside the program as `sys.argv[1]`.
+
+Python opens that file using:
+
+    fin = open(sys.argv[1])
+
+This opens the file in read mode by default.
+
+When Python processes a file using:
+
+    for line in fin:
+
+it reads the file **line by line**, which is efficient and practical for structured input files.
+
+Each line usually ends with a newline character (`\n`), so it is common to remove it before processing:
+
+    line = line.rstrip('\n')
+
+After that, the line can be split into fields, converted where needed, and aggregated into a data structure.
+
+### Example — Printer Job Aggregation from File
+```python
+    #!/usr/bin/env python3
+
+    import sys
+    import re
+
+    # dictionary to store aggregated results
+    # key   -> printer name
+    # value -> [job_count, total_size]
+    printers = {}
+
+    # open the file passed as the first command-line argument
+    fin = open(sys.argv[1])
+
+    # process each line in the file
+    for line in fin:
+        # remove trailing newline
+        line = line.rstrip('\n')
+
+        # split the structured record into fields
+        fields = re.split(',', line)
+
+        # extract printer name and convert job size to integer
+        printer_name = fields[0]
+        job_size = int(fields[1])
+
+        # update aggregation
+        if printer_name in printers:
+            printers[printer_name][0] += 1         # increment job count
+            printers[printer_name][1] += job_size  # add to total size
+        else:
+            printers[printer_name] = [1, job_size] # initialise entry
+
+    # close the file after processing
+    fin.close()
+
+    # print final aggregated report
+    print("\n--- Printer Job Report ---")
+
+    for printer in printers:
+        jobs = printers[printer][0]
+        size = printers[printer][1]
+
+        print(f"{printer} -> jobs: {jobs}, total size: {size}")
+```
+### What this demonstrates
+
+- Reading a file from a command-line argument  
+- Processing structured input line by line  
+- Splitting each record into fields  
+- Converting string data into numeric values  
+- Aggregating data using a dictionary  
+- Producing a structured summary report
 ---
 
 **End of Week 09**
