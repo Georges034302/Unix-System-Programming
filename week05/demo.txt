@@ -1,15 +1,16 @@
 # demo.txt
 Size: 1234 $ 
 
-^ System users: admin, guest
-- User 01: Admin
-- User 02: Guest
+System users ^: admin, guest
+- User 1: Admin
+- User 2: Guest
 
 # User-ids $ 
-$admin-ID: 22
-$guest-ID: 333
+$admin:ID- 22
+$guest:ID- 333
 
 ^ start_content $ 
+b
 bd
 bad
 bxd
