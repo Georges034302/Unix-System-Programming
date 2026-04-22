@@ -1,0 +1,8 @@
+Printer_A,120,User1
+Printer_B,350,User2
+Printer_A,80,User3
+Printer_C,500,User1
+Printer_B,90,User2
+Printer_A,200,User4
+Printer_C,150,User3
+Printer_B,60,User1
