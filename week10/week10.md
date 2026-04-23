@@ -1,4 +1,4 @@
-# Week 10 — Functions in Python for Unix Systems Programming
+# Week 10 — Functions in Python
 
 ## Table of Contents
 1. [Functions in Python](#1-functions-in-python)  
@@ -27,8 +27,8 @@
    5.3 [Updating Data Structures in Functions](#53-updating-data-structures-in-functions)  
 
 6. [Variable-Length Arguments](#6-variable-length-arguments)  
-   6.1 [*args (Variable Positional Arguments)](#61-args-variable-positional-arguments)  
-   6.2 [**kwargs (Variable Keyword Arguments)](#62-kwargs-variable-keyword-arguments)  
+   6.1 [args](#61-args)  
+   6.2 [kwargs](#62-kwargs)  
 
 7. [Functions in Practice](#7-functions-in-practice)  
    7.1 [Modular Program Design](#71-modular-program-design)  
@@ -41,389 +41,1199 @@
 # 1. Functions in Python
 
 ## 1.1 Definition of Functions
-**Definition:** A function is a reusable block of code that performs a specific task.
 
-**Purpose:**  
-- Avoid repetition  
-- Improve modularity  
-- Improve readability  
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def name(parameters):
-    return value
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def greet(name):
-    print("Hello", name)
+#!/usr/bin/env python3
+import os
 
-greet("Sydney")
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
-**Example 2:**
-```python
-def add(a, b):
-    return a + b
-
-print(add(5, 3))
-```
+# 1. Functions in Python
 
 ## 1.2 Creating and Calling Functions
-**Definition:** Functions are created using `def` and executed via calls.
 
-**Purpose:** Encapsulate logic and reuse.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def f():
-    pass
-f()
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def hello():
-    print("Hi")
+#!/usr/bin/env python3
+import os
 
-hello()
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
-**Example 2:**
-```python
-def square(x):
-    return x*x
-
-print(square(4))
-```
+# 1. Functions in Python
 
 ## 1.3 Parameters vs Arguments
-**Definition:** Parameters are placeholders; arguments are values passed.
 
-**Purpose:** Allow flexibility.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def f(p): pass
-f(value)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def show(x):
-    print(x)
+#!/usr/bin/env python3
+import os
 
-show(10)
-```
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
 
-**Example 2:**
-```python
-def mul(a,b):
-    return a*b
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
 
-print(mul(2,3))
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 2. Function Parameters and Arguments
 
 ## 2.1 Positional Arguments
-**Definition:** Arguments passed by order.
 
-**Purpose:** Simple and fast.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-f(a,b)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def sub(a,b):
-    return a-b
+#!/usr/bin/env python3
+import os
 
-print(sub(5,2))
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
-**Example 2:**
-```python
-print(sub(2,5))
-```
+# 2. Function Parameters and Arguments
 
 ## 2.2 Keyword Arguments
-**Definition:** Arguments passed by name.
 
-**Purpose:** Flexibility.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-f(a=1,b=2)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def volume(h,w,d):
-    return h*w*d
+#!/usr/bin/env python3
+import os
 
-print(volume(h=2,w=3,d=4))
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
-**Example 2:**
-```python
-print(volume(d=4,h=2,w=3))
-```
+# 2. Function Parameters and Arguments
 
 ## 2.3 Default Parameter Values
-**Definition:** Parameters have default values.
 
-**Purpose:** Optional arguments.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Syntax:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def f(a=10):
-    pass
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 1:**
+### Example 2
 ```python
-def inc(x=1):
-    return x+1
+#!/usr/bin/env python3
+import os
 
-print(inc())
-```
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
 
-**Example 2:**
-```python
-print(inc(5))
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 3. Return Values
 
 ## 3.1 Single Return Value
-**Definition:** Return one value.
 
-**Purpose:** Send result back.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Example 1:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def sq(x):
-    return x*x
+#!/usr/bin/env python3
+import sys
 
-print(sq(3))
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-y = sq(4)
-print(y)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 3. Return Values
 
 ## 3.2 Multiple Return Values
-**Definition:** Return multiple values.
 
-**Purpose:** Return structured results.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Example 1:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def stats(l):
-    return min(l), max(l)
+#!/usr/bin/env python3
+import sys
 
-print(stats([1,5,3]))
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-a,b = stats([10,20])
-print(a,b)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 4. Memory and Argument Passing
 
 ## 4.1 Variable Memory Model
-**Definition:** Variables store references.
 
-**Purpose:** Efficient memory use.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Example 1:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-x = 10
-y = x
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-x = 20
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 4. Memory and Argument Passing
 
 ## 4.2 Immutable vs Mutable Objects
-**Definition:** Immutable cannot change, mutable can.
 
-**Example 1:**
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-x = 10
-x = 20
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-l=[1,2]
-l[0]=5
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 4. Memory and Argument Passing
 
 ## 4.3 Passing Immutable Objects
-**Example 1:**
-```python
-def f(x):
-    x=100
 
-a=10
-f(a)
-print(a)
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
+```python
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-def g(n):
-    n+=1
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 4. Memory and Argument Passing
 
 ## 4.4 Passing Mutable Objects
-**Example 1:**
-```python
-def mod(l):
-    l[0]=99
 
-a=[1,2]
-mod(a)
-print(a)
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
+```python
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-def add(l):
-    l.append(5)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 5. Working with Data Structures in Functions
 
 ## 5.1 Lists as Arguments
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def avg(l):
-    return sum(l)/len(l)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-print(avg([1,2,3]))
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 5. Working with Data Structures in Functions
 
 ## 5.2 Dictionaries as Arguments
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def show(d):
-    for k in d:
-        print(k,d[k])
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-show({"a":1})
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 5. Working with Data Structures in Functions
 
 ## 5.3 Updating Data Structures in Functions
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def update(d,k,v):
-    d[k]=v
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-d={}
-update(d,"x",10)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 6. Variable-Length Arguments
 
 ## 6.1 *args
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def f(*args):
-    print(args)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-f(1,2,3)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 6. Variable-Length Arguments
 
 ## 6.2 **kwargs
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def f(**kwargs):
-    print(kwargs)
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-f(a=1,b=2)
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
 
 # 7. Functions in Practice
 
 ## 7.1 Modular Program Design
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def process():
-    pass
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-def main():
-    process()
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 7. Functions in Practice
 
 ## 7.2 Reusing Functions
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def add(a,b):
-    return a+b
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-print(add(1,2))
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 7. Functions in Practice
 
 ## 7.3 Using Standard Library Functions
-**Example 1:**
+
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
+
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-import math
-print(math.sqrt(4))
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-print(len("abc"))
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+
+# 7. Functions in Practice
 
 ## 7.4 Functions with Files
-**Definition:** Encapsulate file operations.
 
-**Purpose:** Reusable file processing.
+A function is a reusable execution block that encapsulates logic and allows structured program design. 
+Conceptually, functions isolate computation, enable abstraction, and support composition of complex workflows.
 
-**Example 1:**
+### Usage
+- Used to structure large programs
+- Enables reuse of logic
+- Supports pipeline design (input → process → output)
+- Helps debugging and testing
+
+### Example 1
 ```python
-def read_file(path):
-    with open(path) as f:
-        return f.read()
+#!/usr/bin/env python3
+import sys
+
+def read_lines():
+    return sys.stdin.readlines()  # read all stdin lines
+
+def count_errors(lines):
+    count = 0
+    for line in lines:
+        if "ERROR" in line:  # detect error
+            count += 1
+    return count
+
+data = read_lines()
+print("Total Errors:", count_errors(data))
 ```
 
-**Example 2:**
+### Example 2
 ```python
-def count_lines(path):
-    with open(path) as f:
-        return len(f.readlines())
+#!/usr/bin/env python3
+import os
+
+def collect_files(path):
+    files = []
+    for root, _, fs in os.walk(path):  # traverse directories
+        for f in fs:
+            files.append(os.path.join(root, f))
+    return files
+
+def total_size(files):
+    size = 0
+    for f in files:
+        try:
+            size += os.path.getsize(f)  # accumulate size
+        except:
+            pass
+    return size
+
+files = collect_files(".")
+print("Total size:", total_size(files))
 ```
+---
+
+**End of Week 10**
