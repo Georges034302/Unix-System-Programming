@@ -10,69 +10,56 @@
    2.1 [Positional Arguments](#21-positional-arguments)  
    2.2 [Keyword Arguments](#22-keyword-arguments)  
    2.3 [Default Parameter Values](#23-default-parameter-values)  
-   2.4 [Usage Scenarios](#24-usage-scenarios)  
-   2.5 [Example 1 — Basic Parameter Usage](#25-example-1--basic-parameter-usage)  
-   2.6 [Example 2 — Flexible Function Calls](#26-example-2---flexible-function-calls)  
 
 3. [Return Values](#3-return-values)  
    3.1 [Single Return Value](#31-single-return-value)  
    3.2 [Multiple Return Values](#32-multiple-return-values)  
-   3.3 [Usage Scenarios](#33-usage-scenarios)  
-   3.4 [Example 1 — Returning a Single Value](#34-example-1--returning-a-single-value)  
-   3.5 [Example 2 — Returning Multiple Values](#35-example-2---returning-multiple-values)  
 
 4. [Memory and Argument Passing](#4-memory-and-argument-passing)  
    4.1 [Variable Memory Model](#41-variable-memory-model)  
    4.2 [Immutable vs Mutable Objects](#42-immutable-vs-mutable-objects)  
    4.3 [Passing Immutable Objects](#43-passing-immutable-objects)  
    4.4 [Passing Mutable Objects](#44-passing-mutable-objects)  
-   4.5 [Usage Scenarios](#45-usage-scenarios)  
-   4.6 [Example 1 — Immutable Argument Behaviour](#46-example-1--immutable-argument-behaviour)  
-   4.7 [Example 2 — Mutable Argument Behaviour](#47-example-2---mutable-argument-behaviour)  
 
 5. [Working with Data Structures in Functions](#5-working-with-data-structures-in-functions)  
    5.1 [Lists as Arguments](#51-lists-as-arguments)  
    5.2 [Dictionaries as Arguments](#52-dictionaries-as-arguments)  
    5.3 [Updating Data Structures in Functions](#53-updating-data-structures-in-functions)  
-   5.4 [Usage Scenarios](#54-usage-scenarios)  
-   5.5 [Example 1 — List Processing Function](#55-example-1--list-processing-function)  
-   5.6 [Example 2 — Dictionary Update Function](#56-example-2---dictionary-update-function)  
 
 6. [Variable-Length Arguments](#6-variable-length-arguments)  
    6.1 [*args (Variable Positional Arguments)](#61-args-variable-positional-arguments)  
    6.2 [**kwargs (Variable Keyword Arguments)](#62-kwargs-variable-keyword-arguments)  
-   6.3 [Practical Use Cases](#63-practical-use-cases)  
-   6.4 [Example 1 — Using *args](#64-example-1--using-args)  
-   6.5 [Example 2 — Using **kwargs](#65-example-2---using-kwargs)  
 
 7. [Functions in Practice](#7-functions-in-practice)  
    7.1 [Modular Program Design](#71-modular-program-design)  
    7.2 [Reusing Functions](#72-reusing-functions)  
    7.3 [Using Standard Library Functions](#73-using-standard-library-functions)  
    7.4 [Functions with Files](#74-functions-with-files)  
-   7.5 [Example 1 — File Reading Function](#75-example-1--file-reading-function)  
-   7.6 [Example 2 — File Processing and Reporting](#76-example-2---file-processing-and-reporting)  
-
 
 ---
 
 # 1. Functions in Python
 
-## 1.1 Introduction to Functions
-**Definition:** Functions encapsulate reusable logic to improve modularity and readability.
+## 1.1 Definition of Functions
+**Definition:** A function is a reusable block of code that performs a specific task.
+
+**Purpose:**  
+- Avoid repetition  
+- Improve modularity  
+- Improve readability  
 
 **Syntax:**
 ```python
-def function_name(parameters):
+def name(parameters):
     return value
 ```
 
 **Example 1:**
 ```python
-def hello(name):
+def greet(name):
     print("Hello", name)
 
-hello("Sydney")
+greet("Sydney")
 ```
 
 **Example 2:**
@@ -84,26 +71,43 @@ print(add(5, 3))
 ```
 
 ## 1.2 Creating and Calling Functions
-**Definition:** Functions are defined using `def` and executed via calls.
+**Definition:** Functions are created using `def` and executed via calls.
+
+**Purpose:** Encapsulate logic and reuse.
+
+**Syntax:**
+```python
+def f():
+    pass
+f()
+```
 
 **Example 1:**
 ```python
-def square(x):
-    return x * x
+def hello():
+    print("Hi")
 
-print(square(4))
+hello()
 ```
 
 **Example 2:**
 ```python
-def greet():
-    print("Welcome")
+def square(x):
+    return x*x
 
-greet()
+print(square(4))
 ```
 
 ## 1.3 Parameters vs Arguments
-**Definition:** Parameters are variables in definition; arguments are values passed.
+**Definition:** Parameters are placeholders; arguments are values passed.
+
+**Purpose:** Allow flexibility.
+
+**Syntax:**
+```python
+def f(p): pass
+f(value)
+```
 
 **Example 1:**
 ```python
@@ -115,94 +119,131 @@ show(10)
 
 **Example 2:**
 ```python
-def multiply(a, b):
-    print(a * b)
+def mul(a,b):
+    return a*b
 
-multiply(2, 3)
+print(mul(2,3))
 ```
 
 # 2. Function Parameters and Arguments
 
 ## 2.1 Positional Arguments
+**Definition:** Arguments passed by order.
+
+**Purpose:** Simple and fast.
+
+**Syntax:**
+```python
+f(a,b)
+```
+
 **Example 1:**
 ```python
-def sub(a, b):
-    print(a - b)
+def sub(a,b):
+    return a-b
 
-sub(5, 2)
+print(sub(5,2))
 ```
 
 **Example 2:**
 ```python
-sub(2, 5)
+print(sub(2,5))
 ```
 
 ## 2.2 Keyword Arguments
+**Definition:** Arguments passed by name.
+
+**Purpose:** Flexibility.
+
+**Syntax:**
+```python
+f(a=1,b=2)
+```
+
 **Example 1:**
 ```python
-def volume(h, w, d):
-    print(h * w * d)
+def volume(h,w,d):
+    return h*w*d
 
-volume(h=2, w=3, d=4)
+print(volume(h=2,w=3,d=4))
 ```
 
 **Example 2:**
 ```python
-volume(d=4, h=2, w=3)
+print(volume(d=4,h=2,w=3))
 ```
 
 ## 2.3 Default Parameter Values
+**Definition:** Parameters have default values.
+
+**Purpose:** Optional arguments.
+
+**Syntax:**
+```python
+def f(a=10):
+    pass
+```
+
 **Example 1:**
 ```python
-def volume(h=10, w=10, d=10):
-    print(h * w * d)
+def inc(x=1):
+    return x+1
 
-volume()
+print(inc())
 ```
 
 **Example 2:**
 ```python
-volume(20)
+print(inc(5))
 ```
 
 # 3. Return Values
 
 ## 3.1 Single Return Value
+**Definition:** Return one value.
+
+**Purpose:** Send result back.
+
 **Example 1:**
 ```python
-def square(x):
-    return x**2
+def sq(x):
+    return x*x
 
-print(square(3))
+print(sq(3))
 ```
 
 **Example 2:**
 ```python
-y = square(5)
+y = sq(4)
 print(y)
 ```
 
 ## 3.2 Multiple Return Values
+**Definition:** Return multiple values.
+
+**Purpose:** Return structured results.
+
 **Example 1:**
 ```python
-def calc(a, b):
-    return a+b, a-b
+def stats(l):
+    return min(l), max(l)
 
-x, y = calc(5, 3)
-print(x, y)
+print(stats([1,5,3]))
 ```
 
 **Example 2:**
 ```python
-def circle(r):
-    return 2*3.14*r, 3.14*r*r
-
-c, a = circle(2)
+a,b = stats([10,20])
+print(a,b)
 ```
 
 # 4. Memory and Argument Passing
 
 ## 4.1 Variable Memory Model
+**Definition:** Variables store references.
+
+**Purpose:** Efficient memory use.
+
 **Example 1:**
 ```python
 x = 10
@@ -215,6 +256,8 @@ x = 20
 ```
 
 ## 4.2 Immutable vs Mutable Objects
+**Definition:** Immutable cannot change, mutable can.
+
 **Example 1:**
 ```python
 x = 10
@@ -223,17 +266,17 @@ x = 20
 
 **Example 2:**
 ```python
-l = [1,2]
-l[0] = 5
+l=[1,2]
+l[0]=5
 ```
 
 ## 4.3 Passing Immutable Objects
 **Example 1:**
 ```python
 def f(x):
-    x = 100
+    x=100
 
-a = 10
+a=10
 f(a)
 print(a)
 ```
@@ -241,64 +284,64 @@ print(a)
 **Example 2:**
 ```python
 def g(n):
-    n += 1
+    n+=1
 ```
 
 ## 4.4 Passing Mutable Objects
 **Example 1:**
 ```python
-def modify(l):
-    l[0] = 100
+def mod(l):
+    l[0]=99
 
-a = [1,2]
-modify(a)
+a=[1,2]
+mod(a)
 print(a)
 ```
 
 **Example 2:**
 ```python
-def add_item(l):
+def add(l):
     l.append(5)
 ```
 
-# 5. Working with Data Structures
+# 5. Working with Data Structures in Functions
 
 ## 5.1 Lists as Arguments
 **Example 1:**
 ```python
-def sum_list(l):
-    return sum(l)
+def avg(l):
+    return sum(l)/len(l)
 ```
 
 **Example 2:**
 ```python
-print(sum_list([1,2,3]))
+print(avg([1,2,3]))
 ```
 
 ## 5.2 Dictionaries as Arguments
 **Example 1:**
 ```python
-def print_dict(d):
+def show(d):
     for k in d:
-        print(k, d[k])
+        print(k,d[k])
 ```
 
 **Example 2:**
 ```python
-print_dict({"a":1})
+show({"a":1})
 ```
 
-## 5.3 Updating Data Structures
+## 5.3 Updating Data Structures in Functions
 **Example 1:**
 ```python
 def update(d,k,v):
-    d[k] = v
+    d[k]=v
 ```
 
 **Example 2:**
 ```python
-users = {}
-update(users,"x",10)
+d={}
+update(d,"x",10)
 ```
 
 # 6. Variable-Length Arguments
@@ -327,21 +370,9 @@ def f(**kwargs):
 f(a=1,b=2)
 ```
 
-## 6.3 Practical Use Cases
-**Example 1:**
-```python
-def max_val(*args):
-    return max(args)
-```
-
-**Example 2:**
-```python
-print(max_val(1,2,3))
-```
-
 # 7. Functions in Practice
 
-## 7.1 Modular Design
+## 7.1 Modular Program Design
 **Example 1:**
 ```python
 def process():
@@ -354,7 +385,7 @@ def main():
     process()
 ```
 
-## 7.2 Reuse Functions
+## 7.2 Reusing Functions
 **Example 1:**
 ```python
 def add(a,b):
@@ -366,7 +397,7 @@ def add(a,b):
 print(add(1,2))
 ```
 
-## 7.3 Standard Library
+## 7.3 Using Standard Library Functions
 **Example 1:**
 ```python
 import math
@@ -379,7 +410,9 @@ print(len("abc"))
 ```
 
 ## 7.4 Functions with Files
-**Definition:** Functions can encapsulate file operations for reuse.
+**Definition:** Encapsulate file operations.
+
+**Purpose:** Reusable file processing.
 
 **Example 1:**
 ```python
@@ -390,8 +423,7 @@ def read_file(path):
 
 **Example 2:**
 ```python
-def write_file(path, text):
-    with open(path, 'a') as f:
-        f.write(text + "\n")
+def count_lines(path):
+    with open(path) as f:
+        return len(f.readlines())
 ```
-
