@@ -95,8 +95,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 1. Functions in Python
-
 ## 1.2 Creating and Calling Functions
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
