@@ -150,8 +150,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 1. Functions in Python
-
 ## 1.3 Parameters vs Arguments
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -264,8 +262,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 2. Function Parameters and Arguments
-
 ## 2.2 Keyword Arguments
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -320,8 +316,6 @@ def total_size(files):
 files = collect_files(".")
 print("Total size:", total_size(files))
 ```
-
-# 2. Function Parameters and Arguments
 
 ## 2.3 Default Parameter Values
 
@@ -435,8 +429,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 3. Return Values
-
 ## 3.2 Multiple Return Values
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -549,8 +541,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 4. Memory and Argument Passing
-
 ## 4.2 Immutable vs Mutable Objects
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -606,8 +596,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 4. Memory and Argument Passing
-
 ## 4.3 Passing Immutable Objects
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -662,8 +650,6 @@ def total_size(files):
 files = collect_files(".")
 print("Total size:", total_size(files))
 ```
-
-# 4. Memory and Argument Passing
 
 ## 4.4 Passing Mutable Objects
 
@@ -777,8 +763,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 5. Working with Data Structures in Functions
-
 ## 5.2 Dictionaries as Arguments
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -833,8 +817,6 @@ def total_size(files):
 files = collect_files(".")
 print("Total size:", total_size(files))
 ```
-
-# 5. Working with Data Structures in Functions
 
 ## 5.3 Updating Data Structures in Functions
 
@@ -948,8 +930,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 6. Variable-Length Arguments
-
 ## 6.2 **kwargs
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -1062,8 +1042,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 7. Functions in Practice
-
 ## 7.2 Reusing Functions
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -1119,8 +1097,6 @@ files = collect_files(".")
 print("Total size:", total_size(files))
 ```
 
-# 7. Functions in Practice
-
 ## 7.3 Using Standard Library Functions
 
 A function is a reusable execution block that encapsulates logic and allows structured program design. 
@@ -1175,8 +1151,6 @@ def total_size(files):
 files = collect_files(".")
 print("Total size:", total_size(files))
 ```
-
-# 7. Functions in Practice
 
 ## 7.4 Functions with Files
 
