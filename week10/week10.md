@@ -1,49 +1,58 @@
 # Week 10 — Functions in Python for Unix Systems Programming
 
 ## Table of Contents
+1. [Functions in Python](#1-functions-in-python)  
+   1.1 [Definition of Functions](#11-definition-of-functions)  
+   1.2 [Creating and Calling Functions](#12-creating-and-calling-functions)  
+   1.3 [Parameters vs Arguments](#13-parameters-vs-arguments)  
 
-### Functions in Python  
+2. [Function Parameters and Arguments](#2-function-parameters-and-arguments)  
+   2.1 [Positional Arguments](#21-positional-arguments)  
+   2.2 [Keyword Arguments](#22-keyword-arguments)  
+   2.3 [Default Parameter Values](#23-default-parameter-values)  
+   2.4 [Usage Scenarios](#24-usage-scenarios)  
+   2.5 [Example 1 — Basic Parameter Usage](#25-example-1--basic-parameter-usage)  
+   2.6 [Example 2 — Flexible Function Calls](#26-example-2---flexible-function-calls)  
 
-1.1 Introduction to Functions  
-1.2 Creating and Calling Functions  
-1.3 Parameters vs Arguments  
+3. [Return Values](#3-return-values)  
+   3.1 [Single Return Value](#31-single-return-value)  
+   3.2 [Multiple Return Values](#32-multiple-return-values)  
+   3.3 [Usage Scenarios](#33-usage-scenarios)  
+   3.4 [Example 1 — Returning a Single Value](#34-example-1--returning-a-single-value)  
+   3.5 [Example 2 — Returning Multiple Values](#35-example-2---returning-multiple-values)  
 
-### Function Parameters and Arguments  
+4. [Memory and Argument Passing](#4-memory-and-argument-passing)  
+   4.1 [Variable Memory Model](#41-variable-memory-model)  
+   4.2 [Immutable vs Mutable Objects](#42-immutable-vs-mutable-objects)  
+   4.3 [Passing Immutable Objects](#43-passing-immutable-objects)  
+   4.4 [Passing Mutable Objects](#44-passing-mutable-objects)  
+   4.5 [Usage Scenarios](#45-usage-scenarios)  
+   4.6 [Example 1 — Immutable Argument Behaviour](#46-example-1--immutable-argument-behaviour)  
+   4.7 [Example 2 — Mutable Argument Behaviour](#47-example-2---mutable-argument-behaviour)  
 
-2.1 Positional Arguments  
-2.2 Keyword Arguments  
-2.3 Default Parameter Values  
+5. [Working with Data Structures in Functions](#5-working-with-data-structures-in-functions)  
+   5.1 [Lists as Arguments](#51-lists-as-arguments)  
+   5.2 [Dictionaries as Arguments](#52-dictionaries-as-arguments)  
+   5.3 [Updating Data Structures in Functions](#53-updating-data-structures-in-functions)  
+   5.4 [Usage Scenarios](#54-usage-scenarios)  
+   5.5 [Example 1 — List Processing Function](#55-example-1--list-processing-function)  
+   5.6 [Example 2 — Dictionary Update Function](#56-example-2---dictionary-update-function)  
 
-### Return Values  
+6. [Variable-Length Arguments](#6-variable-length-arguments)  
+   6.1 [*args (Variable Positional Arguments)](#61-args-variable-positional-arguments)  
+   6.2 [**kwargs (Variable Keyword Arguments)](#62-kwargs-variable-keyword-arguments)  
+   6.3 [Practical Use Cases](#63-practical-use-cases)  
+   6.4 [Example 1 — Using *args](#64-example-1--using-args)  
+   6.5 [Example 2 — Using **kwargs](#65-example-2---using-kwargs)  
 
-3.1 Single Return Value  
-3.2 Multiple Return Values  
+7. [Functions in Practice](#7-functions-in-practice)  
+   7.1 [Modular Program Design](#71-modular-program-design)  
+   7.2 [Reusing Functions](#72-reusing-functions)  
+   7.3 [Using Standard Library Functions](#73-using-standard-library-functions)  
+   7.4 [Functions with Files](#74-functions-with-files)  
+   7.5 [Example 1 — File Reading Function](#75-example-1--file-reading-function)  
+   7.6 [Example 2 — File Processing and Reporting](#76-example-2---file-processing-and-reporting)  
 
-### Memory and Argument Passing  
-
-4.1 Variable Memory Model  
-4.2 Immutable vs Mutable Objects  
-4.3 Passing Immutable Objects  
-4.4 Passing Mutable Objects  
-
-### Working with Data Structures in Functions  
-
-5.1 Lists as Arguments  
-5.2 Dictionaries as Arguments  
-5.3 Updating Data Structures in Functions  
-
-### Variable-Length Arguments  
-
-6.1 *args (Variable Positional Arguments)  
-6.2 **kwargs (Variable Keyword Arguments)  
-6.3 Practical Use Cases  
-
-### Functions in Practice  
-
-7.1 Modular Program Design  
-7.2 Reusing Functions  
-7.3 Using Standard Library Functions  
-7.4 Functions with Files  
 
 ---
 
