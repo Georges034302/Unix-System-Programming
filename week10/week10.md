@@ -2,43 +2,43 @@
 
 ## Table of Contents
 1. [Functions in Python](#1-functions-in-python)
-1.1 [Definition of Functions](#11-definition-of-functions)
-1.2 [Creating and Calling Functions](#12-creating-and-calling-functions)
-1.3 [Parameters vs Arguments](#13-parameters-vs-arguments)
+    - [1.1 Definition of Functions](#11-definition-of-functions)
+    - [1.2 Creating and Calling Functions](#12-creating-and-calling-functions)
+    - [1.3 Parameters vs Arguments](#13-parameters-vs-arguments)
 
 2. [Function Parameters and Arguments](#2-function-parameters-and-arguments)
-2.1 [Positional Arguments](#21-positional-arguments)
-2.2 [Keyword Arguments](#22-keyword-arguments)
-2.3 [Default Parameter Values](#23-default-parameter-values)
+    - [2.1 Positional Arguments](#21-positional-arguments)
+    - [2.2 Keyword Arguments](#22-keyword-arguments)
+    - [2.3 Default Parameter Values](#23-default-parameter-values)
 
 3. [Return Values](#3-return-values)
-3.1 [Single Return Value](#31-single-return-value)
-3.2 [Multiple Return Values](#32-multiple-return-values)
+    - [3.1 Single Return Value](#31-single-return-value)
+    - [3.2 Multiple Return Values](#32-multiple-return-values)
 
 4. [Memory and Argument Passing](#4-memory-and-argument-passing)
-4.1 [Variable Memory Model](#41-variable-memory-model)
-4.2 [Immutable vs Mutable Objects](#42-immutable-vs-mutable-objects)
-4.3 [Passing Immutable Objects](#43-passing-immutable-objects)
-4.4 [Passing Mutable Objects](#44-passing-mutable-objects)
+    - [4.1 Variable Memory Model](#41-variable-memory-model)
+    - [4.2 Immutable vs Mutable Objects](#42-immutable-vs-mutable-objects)
+    - [4.3 Passing Immutable Objects](#43-passing-immutable-objects)
+    - [4.4 Passing Mutable Objects](#44-passing-mutable-objects)
 
 5. [Working with Data Structures in Functions](#5-working-with-data-structures-in-functions)
-5.1 [Lists as Arguments](#51-lists-as-arguments)
-5.2 [Dictionaries as Arguments](#52-dictionaries-as-arguments)
-5.3 [Updating Data Structures in Functions](#53-updating-data-structures-in-functions)
+    - [5.1 Lists as Arguments](#51-lists-as-arguments)
+    - [5.2 Dictionaries as Arguments](#52-dictionaries-as-arguments)
+    - [5.3 Updating Data Structures in Functions](#53-updating-data-structures-in-functions)
 
 6. [Variable-Length Arguments](#6-variable-length-arguments)
-6.1 [*args](#61-args)
-6.2 [**kwargs](#62-kwargs)
+    - [6.1 *args](#61-args)
+    - [6.2 **kwargs](#62-kwargs)
 
 7. [Functions in Practice](#7-functions-in-practice)
-7.1 [Modular Program Design](#71-modular-program-design)
-7.2 [Reusing Functions](#72-reusing-functions)
-7.3 [Using Standard Library Functions](#73-using-standard-library-functions)
-7.4 [Functions with Files](#74-functions-with-files)
+    - [7.1 Modular Program Design](#71-modular-program-design)
+    - [7.2 Reusing Functions](#72-reusing-functions)
+    - [7.3 Using Standard Library Functions](#73-using-standard-library-functions)
+    - [7.4 Functions with Files](#74-functions-with-files)
 
 8. [Practical Applications and Use Cases](#8-practical-applications-and-use-cases)
-8.1 [Command-Line Data Processing Pipeline](#81-command-line-data-processing-pipeline)
-8.2 [Configuration Validation and Reporting](#82-configuration-validation-and-reporting)
+    - [8.1 Command-Line Data Processing Pipeline](#81-command-line-data-processing-pipeline)
+    - [8.2 Configuration Validation and Reporting](#82-configuration-validation-and-reporting)
 
 ---
 
