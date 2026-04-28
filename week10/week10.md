@@ -987,3 +987,7 @@ The central lessons are:
 - apply functions to realistic pipelines such as parsing, validation, aggregation, and reporting
 
 These ideas are foundational for writing maintainable Python code in the rest of the course.
+
+---
+
+**End of Week 10**
