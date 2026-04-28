@@ -1,0 +1,9 @@
+USP pass score is 50
+There are 5 assessents
+Quiz 1 and Quiz 2 -> 15 marks each
+Programming Tests 1 and 2 -> 20 marks each 
+Assignment -> 30 marks
+Session: 4 months -> 120 students
+Starting with session 0: Orientation week 0
+Students enroled -> 236
+Students after census date -> 203

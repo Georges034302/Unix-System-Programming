@@ -1,70 +1,79 @@
 #!/usr/bin/env python3
-import hashlib
+import hashlib  # Used to create SHA256 hashes for dictionary-attack comparison.
 
-def brute_force_caesar(cipher_text):
-    results = []
+# Decrypts a Caesar-cipher text using one specific shift.
+def decrypt_caesar(text, shift):
+    letters = []
 
+    for char in text:
+        if "a" <= char <= "z":
+            # Move lowercase letters backward by shift, wrapping around a-z.
+            moved = chr((ord(char) - ord("a") - shift) % 26 + ord("a"))
+        elif "A" <= char <= "Z":
+            # Move uppercase letters backward by shift, wrapping around A-Z.
+            moved = chr((ord(char) - ord("A") - shift) % 26 + ord("A"))
+        else:
+            # Keep spaces and punctuation unchanged.
+            moved = char
+
+        letters.append(moved)
+
+    return "".join(letters)
+
+
+# Prints all 26 Caesar-shift decryption attempts.
+def show_all_caesar_shifts(text):
+    # Try every shift from 0 to 25.
     for shift in range(26):
-        candidate = []
+        print("Shift", shift, ":", decrypt_caesar(text, shift))
 
-        for char in cipher_text:
-            if "a" <= char <= "z":
-                candidate.append(chr((ord(char) - ord("a") - shift) % 26 + ord("a")))
-            elif "A" <= char <= "Z":
-                candidate.append(chr((ord(char) - ord("A") - shift) % 26 + ord("A")))
-            else:
-                candidate.append(char)
 
-        results.append((shift, "".join(candidate)))
-
-    return results
-
-def dictionary_attack(target_hash, words):
+# Finds and returns the word whose SHA256 hash matches the target.
+def find_word_by_hash(target_hash, words):
     for word in words:
         candidate = word.strip()
-        digest = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
+        current_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
 
-        if digest == target_hash:
+        if current_hash == target_hash:
             return candidate
 
     return None
 
-def main():
+
+# Reads candidate words from input until '*' is entered.
+def read_words_until_star():
+    words = []
+    print("Enter words. Type * to finish.")
+
     while True:
-        print("\n1 Brute Force Caesar")
-        print("2 Dictionary Attack")
-        print("3 Exit")
+        word = input()
+        if word == "*":
+            return words
+        words.append(word)
 
-        choice = input("Choice: ")
+# Shows one menu, runs one selected action, then exits.
+def main():
+    print("\n1 Show Caesar shifts")
+    print("2 Find word from hash")
+    print("3 Exit")
 
-        match choice:
-            case "1":
-                text = input("Cipher text: ")
+    choice = input("Choice: ")
 
-                for shift, candidate in brute_force_caesar(text):
-                    print(f"{shift:2d}: {candidate}")
+    if choice == "1":
+        text = input("Cipher text: ")
+        show_all_caesar_shifts(text)
 
-            case "2":
-                target = input("Target hash: ")
-                words = []
+    elif choice == "2":
+        target_hash = input("Target hash: ")
+        words = read_words_until_star()
+        result = find_word_by_hash(target_hash, words)
+        print("Found:" if result else "Not found", result or "")
 
-                print("Enter words. Use * to stop.")
-                while True:
-                    word = input()
+    elif choice == "3":
+        return
 
-                    if word == "*":
-                        break
-
-                    words.append(word)
-
-                result = dictionary_attack(target, words)
-                print("Found:" if result else "Not found", result or "")
-
-            case "3":
-                break
-
-            case _:
-                print("Invalid choice.")
+    else:
+        print("Invalid choice.")
 
 if __name__ == "__main__":
     main()

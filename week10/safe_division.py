@@ -1,43 +1,35 @@
 #!/usr/bin/env python3
+"""
+Demonstrate safe division with validation.
+Usage: python3 safe_division.py
+Prompts for two integers and performs division with prevention validation.
+"""
 
+# Divides a by b.
 def div(a, b):
     return a / b
 
-def safe_division_prevent():
-    print("\n--- Prevent exception ---")
+# Prompts for two integers with validation.
+def get_user_input():
+    a_str = input("a = ").strip()
+    b_str = input("b = ").strip()
+    
+    if not a_str.lstrip("-").isdigit() or not b_str.lstrip("-").isdigit():
+        raise ValueError("Enter integers only")
+    
+    a = int(a_str)
+    b = int(b_str)
+    
+    if b == 0:
+        raise ValueError("Division by zero: b cannot be zero")
+    
+    return a, b
 
-    while True:
-        try:
-            a = int(input("a = "))
-            b = int(input("b = "))
-
-            if b == 0:
-                print("b is zero. Try again.")
-                continue
-
-            print("Result:", div(a, b))
-            break
-
-        except ValueError:
-            print("Enter integers only.")
-
-def safe_division_handle():
-    print("\n--- Handle exception ---")
-
-    try:
-        a = int(input("a = "))
-        b = int(input("b = "))
-        print("Result:", div(a, b))
-
-    except ValueError:
-        print("Enter integers only.")
-
-    except ZeroDivisionError:
-        print("Division by zero was handled.")
-
+# Prompts for input, validates, and performs division.
 def main():
-    safe_division_prevent()
-    safe_division_handle()
+    a, b = get_user_input()
+    result = div(a, b)
+    print("Result:", result)
 
 if __name__ == "__main__":
     main()
