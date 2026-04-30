@@ -68,11 +68,14 @@ Conceptually:
 input values -> function logic -> result
 ```
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Clean spacing/case, then make usernames shell-friendly with underscores.
 def normalize_username(username):
+    # strip removes edge spaces; lower normalizes case.
     cleaned = username.strip().lower()
+    # Replace inner spaces so username can be used as an identifier.
     return cleaned.replace(" ", "_")
 
 print(normalize_username("  Alice Smith  "))
@@ -80,16 +83,19 @@ print(normalize_username("  Alice Smith  "))
 
 This function defines one focused operation: normalize a username for later use.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Count each service state, and treat unknown states as failed.
 def summarize_service_status(records):
     summary = {"running": 0, "stopped": 0, "failed": 0}
 
     for name, state in records:
+        # state chooses which bucket to increment.
         if state in summary:
             summary[state] += 1
         else:
+            # Unknown labels are grouped under "failed".
             summary["failed"] += 1
 
     return summary
@@ -112,10 +118,12 @@ A function is created with the `def` keyword. Its header declares the function n
 
 Defining a function does not execute it. The code inside the function runs only when the function call happens.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Convert block count to bytes using bytes-per-block.
 def calculate_disk_usage(blocks, block_size):
+    # Formula: total bytes = number of blocks * size of each block.
     return blocks * block_size
 
 total_bytes = calculate_disk_usage(240, 4096)
@@ -124,13 +132,16 @@ print(total_bytes)
 
 The program first defines the function and only later uses it to compute a result.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Split a colon-separated record and convert uid to an integer.
 def parse_record(line):
+    # Unpack three fields from "user:uid:shell".
     user, uid, shell = line.strip().split(":")
     return {"user": user, "uid": int(uid), "shell": shell}
 
+# Keep output formatting separate from parsing logic.
 def show_record(record):
     print(f"{record['user']} -> uid={record['uid']} shell={record['shell']}")
 
@@ -148,10 +159,12 @@ An argument is the real value supplied when the function is called.
 
 This distinction matters because parameters describe a general interface, while arguments provide specific runtime data.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Repeat text "count" times.
 def repeat_text(text, count):
+    # String multiplication duplicates the string count times.
     return text * count
 
 print(repeat_text("ab", 3))
@@ -159,16 +172,19 @@ print(repeat_text("ab", 3))
 
 Here, `text` and `count` are parameters. The values `"ab"` and `3` are the arguments.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Reusable range check with inclusive bounds.
 def within_range(value, lower, upper):
+    # Inclusive check means lower and upper are also accepted.
     return lower <= value <= upper
 
 numbers = [4, 11, 17, 29, 32]
 filtered = []
 
 for number in numbers:
+    # Keep only numbers inside the requested interval.
     if within_range(number, 10, 30):
         filtered.append(number)
 
@@ -187,10 +203,12 @@ Parameter design affects how clear and safe a function call is. Two functions ca
 
 With positional arguments, values are matched to parameters according to order. This is simple and compact, but the caller must remember the correct parameter sequence.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Build a simple file path from ordered positional arguments.
 def build_path(directory, filename, extension):
+    # Build "directory/filename.extension" format.
     return f"{directory}/{filename}.{extension}"
 
 print(build_path("logs", "system", "txt"))
@@ -198,10 +216,12 @@ print(build_path("logs", "system", "txt"))
 
 The order works well because the arguments follow the natural layout of a path.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Return a contiguous slice starting at index "start".
 def compute_window(series, start, length):
+    # End index is exclusive, so we use start + length.
     return series[start:start + length]
 
 data = [12, 18, 21, 30, 27, 19, 16, 11]
@@ -215,10 +235,12 @@ Here, choosing the right order is important because all arguments are valid type
 
 With keyword arguments, values are supplied by parameter name. This improves readability and is useful when several parameters have similar meanings or similar data types.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Return a user record dictionary from named inputs.
 def create_user(name, role, active):
+    # Map each parameter to a labeled field.
     return {"name": name, "role": role, "active": active}
 
 user = create_user(role="operator", name="Nadia", active=True)
@@ -227,10 +249,12 @@ print(user)
 
 The meaning of each value is immediately visible in the call.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Demonstrates named arguments for readability in config-style calls.
 def connect_service(host, port, timeout, retries):
+    # Return a status message showing selected connection settings.
     return f"Connecting to {host}:{port} timeout={timeout} retries={retries}"
 
 message = connect_service(
@@ -248,10 +272,12 @@ Keyword arguments reduce confusion when a function accepts several configuration
 
 Default parameters provide a fallback value when the caller does not supply an argument. This makes common calls simpler while preserving flexibility.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Use a default chunk size when caller does not pass one.
 def read_chunk(size=1024):
+    # Caller can override default by passing size explicitly.
     return f"Reading {size} bytes"
 
 print(read_chunk())
@@ -260,18 +286,22 @@ print(read_chunk(4096))
 
 A default value supports a standard case without blocking customization.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Build report text with optional header and output format label.
 def export_report(data, format_name="txt", include_header=True):
     lines = []
 
     if include_header:
+        # Header is included only when requested.
         lines.append("REPORT")
 
     for item in data:
+        # Convert non-string items safely before storing.
         lines.append(str(item))
 
+    # Return metadata plus generated lines.
     return {"format": format_name, "content": lines}
 
 print(export_report(["ok", "warning"]))
@@ -290,13 +320,15 @@ A function becomes much more powerful when it returns data. Returned values can 
 
 Most functions return one result. That result may be a simple scalar or a larger structure.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Count vowels by scanning normalized lowercase text.
 def count_vowels(text):
     total = 0
 
     for char in text.lower():
+        # Compare against vowel set.
         if char in "aeiou":
             total += 1
 
@@ -307,14 +339,16 @@ print(count_vowels("Documentation"))
 
 The caller decides how to use the returned count.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Track the best score seen so far during dictionary iteration.
 def highest_scoring_player(players):
     best_name = None
     best_score = -1
 
     for name, score in players.items():
+        # Update best pair when a higher score appears.
         if score > best_score:
             best_name = name
             best_score = score
@@ -330,22 +364,28 @@ This still returns one value, but that value is a structured object containing m
 
 Python can return multiple values by packaging them into a tuple. This is useful when one analysis naturally produces several related outputs.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Return both integer division and remainder as a tuple.
 def divide_and_remainder(a, b):
+    # a // b gives quotient, a % b gives leftover.
     return a // b, a % b
 
 quotient, remainder = divide_and_remainder(17, 5)
 print(quotient, remainder)
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Compute total/average and split marks into pass/fail lists.
 def analyze_marks(marks):
+    # Sum first so average calculation stays simple.
     total = sum(marks)
+    # len(marks) is count of values used in the mean.
     average = total / len(marks)
+    # Two comprehensions separate results by threshold.
     passed = [mark for mark in marks if mark >= 50]
     failed = [mark for mark in marks if mark < 50]
     return total, average, passed, failed
@@ -369,11 +409,13 @@ Understanding how Python handles objects is essential for understanding function
 
 Python variables store references to objects. Multiple names can refer to the same object, especially when the object is mutable.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Both names reference the same list object.
 values = [10, 20, 30]
 alias = values
+# In-place mutation is visible through every reference.
 alias.append(40)
 
 print(values)
@@ -382,10 +424,12 @@ print(alias)
 
 Both variables point to the same list object.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Mutate a nested list inside a shared dictionary.
 def attach_tag(record, tag):
+    # Appending mutates the original list object in-place.
     record["tags"].append(tag)
 
 user = {"name": "Lena", "tags": ["student"]}
@@ -404,10 +448,12 @@ Immutable objects cannot be changed in place. Mutable objects can.
 
 This distinction explains why some changes stay local while others affect shared state.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# String methods return a new object (strings are immutable).
 name = "unix"
+# upper() creates a new uppercase string.
 updated = name.upper()
 
 print(name)
@@ -416,10 +462,12 @@ print(updated)
 
 The original string stays unchanged because strings are immutable.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Dictionary/list are mutable, so this updates in place.
 config = {"ports": [22, 80]}
+# Add another port directly into the existing list.
 config["ports"].append(443)
 
 print(config)
@@ -431,10 +479,12 @@ The dictionary and nested list are mutable, so the structure is modified in plac
 
 When an immutable object is passed to a function, rebinding the parameter creates a new value for the local name instead of modifying the caller's original object.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Rebinding an int creates a new local value.
 def bump(value):
+    # This does not change caller's variable; it rebinds local name.
     value = value + 5
     return value
 
@@ -444,10 +494,12 @@ print(count)
 print(new_count)
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Build and return a masked copy; original string is unchanged.
 def mask_username(username):
+    # Keep first 2 chars, hide remaining part.
     username = username[:2] + "***"
     return username
 
@@ -463,10 +515,12 @@ The function returns a new value rather than mutating the original immutable obj
 
 When a mutable object is passed to a function, in-place updates affect the original object seen by the caller.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Append directly to caller-provided list (side effect).
 def add_log_entry(logs, message):
+    # Caller sees this new message because list is mutable.
     logs.append(message)
 
 entries = []
@@ -474,12 +528,15 @@ add_log_entry(entries, "system started")
 print(entries)
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Increment stock in place, creating a key when item is new.
 def update_inventory(stock, item, amount):
     if item not in stock:
+        # Initialize missing items before incrementing.
         stock[item] = 0
+    # Update quantity for existing or newly created key.
     stock[item] += amount
 
 inventory = {"usb": 5, "ssd": 2}
@@ -500,13 +557,15 @@ Functions become far more practical when they operate on collections such as lis
 
 Lists are useful when a function processes ordered data, windows of values, or repeated entries.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Count how many values are even.
 def count_even_numbers(values):
     total = 0
 
     for value in values:
+        # Even numbers have remainder 0 when divided by 2.
         if value % 2 == 0:
             total += 1
 
@@ -515,13 +574,15 @@ def count_even_numbers(values):
 print(count_even_numbers([3, 4, 8, 11, 14]))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Compute moving average for each window of fixed size.
 def sliding_averages(values, window_size):
     averages = []
 
     for start in range(len(values) - window_size + 1):
+        # Slice one window, then average it.
         window = values[start:start + window_size]
         averages.append(sum(window) / window_size)
 
@@ -536,22 +597,26 @@ This style appears in monitoring systems, analytics, and time-series calculation
 
 Dictionaries are useful when data should be accessed by key rather than by position.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Format selected dictionary fields into one status string.
 def format_service(service):
+    # Access dictionary keys directly inside f-string.
     return f"{service['name']} -> {service['status']}"
 
 print(format_service({"name": "nginx", "status": "running"}))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Average score list for each department key.
 def average_department_scores(records):
     result = {}
 
     for department, scores in records.items():
+        # Compute one average per department list.
         result[department] = sum(scores) / len(scores)
 
     return result
@@ -573,10 +638,12 @@ Some functions are designed to mutate a data structure directly instead of retur
 
 These functions should be named clearly so their side effects are obvious.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Mark a student directly in the shared attendance dictionary.
 def mark_absent(attendance, student):
+    # Overwrite status for selected student key.
     attendance[student] = "absent"
 
 attendance = {"Amir": "present"}
@@ -584,13 +651,16 @@ mark_absent(attendance, "Amir")
 print(attendance)
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Group metric values by category with lazy list initialization.
 def register_event(metrics, category, value):
     if category not in metrics:
+        # First event for this category creates a new list.
         metrics[category] = []
 
+    # Later events are appended to the same category list.
     metrics[category].append(value)
 
 system_metrics = {}
@@ -612,13 +682,15 @@ In some situations, the exact number or names of arguments cannot be known in ad
 
 `*args` collects extra positional arguments into a tuple.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Accept any number of positional numbers and multiply them.
 def multiply_all(*args):
     result = 1
 
     for value in args:
+        # Repeated multiplication accumulates final product.
         result *= value
 
     return result
@@ -626,13 +698,15 @@ def multiply_all(*args):
 print(multiply_all(2, 3, 4))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Merge numeric ranges and keep unique values only.
 def merge_ranges(*ranges):
     merged = []
 
     for start, end in ranges:
+        # range uses end + 1 to include final boundary.
         for value in range(start, end + 1):
             if value not in merged:
                 merged.append(value)
@@ -648,25 +722,30 @@ The function can accept any number of input ranges without changing its definiti
 
 `**kwargs` collects extra keyword arguments into a dictionary.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# kwargs arrives as a dictionary of named fields.
 def build_profile(**kwargs):
+    # Returning kwargs gives a dynamic profile structure.
     return kwargs
 
 print(build_profile(name="Dina", role="admin", active=True))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Build a SQL WHERE clause from optional named filters.
 def render_query(table, **filters):
     clauses = []
 
     for key, value in filters.items():
+        # Convert each filter to "field='value'" form.
         clauses.append(f"{key}='{value}'")
 
     where_clause = " AND ".join(clauses)
+    # Assemble final query from table name and generated filters.
     return f"SELECT * FROM {table} WHERE {where_clause};"
 
 print(render_query("users", role="operator", active="yes", region="eu"))
@@ -684,31 +763,40 @@ The real value of functions appears when several of them work together to form a
 
 Modular design means breaking one larger task into smaller functions where each function has one clear job.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Input function: read one score from user.
 def read_score():
+    # Convert input text to integer before returning.
     return int(input("Score: "))
 
+# Processing function: classify score.
 def classify_score(score):
+    # Ternary operator chooses label from one condition.
     return "pass" if score >= 50 else "fail"
 
+# Output function: print final result.
 def show_score_result(result):
     print(result)
 ```
 
 Each function has a narrow role: input, processing, and output.
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Convert a whitespace-separated line into integers.
 def parse_numbers(line):
+    # split() tokenizes by spaces; int() converts each token.
     return [int(token) for token in line.split()]
 
+# Keep only prime values from an input list.
 def filter_primes(values):
     primes = []
 
     for value in values:
+        # Numbers below 2 are not prime by definition.
         if value < 2:
             continue
 
@@ -716,12 +804,15 @@ def filter_primes(values):
         divisor = 2
 
         while divisor * divisor <= value:
+            # If divisible, value is not prime.
             if value % divisor == 0:
                 is_prime = False
                 break
+            # Try next possible divisor.
             divisor += 1
 
         if is_prime:
+            # Keep values that survived all divisibility tests.
             primes.append(value)
 
     return primes
@@ -739,26 +830,31 @@ This is much easier to understand than one large script block doing everything a
 
 Reusable functions allow one correct implementation to be used in many parts of a program.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Validate alphabetic + uppercase in one reusable helper.
 def is_uppercase_word(word):
+    # isalpha blocks digits/symbols; isupper checks letter case.
     return word.isalpha() and word.isupper()
 
 print(is_uppercase_word("CPU"))
 print(is_uppercase_word("Cpu"))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Normalize email for consistent matching/storage.
 def normalize_email(email):
+    # strip removes accidental spaces from user input.
     return email.strip().lower()
 
 raw_emails = [" Admin@Site.com ", "USER@site.com", "guest@site.com "]
 cleaned = []
 
 for email in raw_emails:
+    # Reuse the same helper for every list item.
     cleaned.append(normalize_email(email))
 
 print(cleaned)
@@ -770,24 +866,30 @@ The same helper could also be reused in validation, duplicate detection, and sto
 
 Python's standard library provides reliable tools that should be reused whenever they fit the problem.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Standard library import for square root.
 import math
 
+# Use Pythagorean formula for triangle hypotenuse.
 def hypotenuse(a, b):
+    # sqrt(a^2 + b^2)
     return math.sqrt(a * a + b * b)
 
 print(hypotenuse(5, 12))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Counter quickly computes token frequencies.
 from collections import Counter
 
 def top_three_words(text):
+    # lower+split normalizes words before counting.
     counts = Counter(text.lower().split())
+    # Return top N as (word, frequency) pairs.
     return counts.most_common(3)
 
 print(top_three_words("error warning info error error warning ok info error"))
@@ -799,30 +901,36 @@ Using the standard library usually leads to code that is clearer and more reliab
 
 File-processing programs become easier to reason about when reading, parsing, computation, and reporting are split into separate functions.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Read all lines from a UTF-8 text file.
 def read_lines(filename):
     with open(filename, "r", encoding="utf-8") as file:
+        # readlines keeps line breaks and returns a list.
         return file.readlines()
 
+# Count lines that are not empty/whitespace only.
 def count_non_empty_lines(lines):
     total = 0
 
     for line in lines:
+        # strip() becomes empty for blank/whitespace lines.
         if line.strip():
             total += 1
 
     return total
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Parse CSV-like lines into typed sales records.
 def parse_sales_lines(lines):
     records = []
 
     for line in lines:
+        # Split and convert numeric fields to int/float types.
         product, qty, price = line.strip().split(",")
         records.append({"product": product, "qty": int(qty), "price": float(price)})
 
@@ -832,6 +940,7 @@ def total_revenue(records):
     revenue = 0
 
     for record in records:
+        # Revenue contribution = quantity * unit price.
         revenue += record["qty"] * record["price"]
 
     return revenue
@@ -858,16 +967,22 @@ Functions matter most when they work together in realistic workflows. This secti
 
 A pipeline breaks work into stages such as tokenizing, filtering, and summarizing.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Stage 1: split text into lowercase words.
 def tokenize(line):
+    # Lowercasing makes later filtering/counters case-insensitive.
     return line.lower().split()
 
+# Stage 2: keep words meeting minimum length.
 def filter_long_words(words, minimum_length):
+    # List comprehension keeps only qualifying words.
     return [word for word in words if len(word) >= minimum_length]
 
+# Stage 3: summarize pipeline output.
 def summarize(words):
+    # Return count and the actual filtered list together.
     return {"count": len(words), "words": words}
 
 words = tokenize("Systems programming teaches reusable design")
@@ -875,19 +990,22 @@ long_words = filter_long_words(words, 7)
 print(summarize(long_words))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Parse each log line into structured dictionary entries.
 def parse_log_lines(lines):
     entries = []
 
     for line in lines:
+        # maxsplit=2 keeps message text intact even with extra separators.
         level, service, message = line.strip().split("|", 2)
         entries.append({"level": level, "service": service, "message": message})
 
     return entries
 
 def filter_errors(entries):
+    # Keep only ERROR-level events.
     return [entry for entry in entries if entry["level"] == "ERROR"]
 
 def count_by_service(entries):
@@ -895,6 +1013,7 @@ def count_by_service(entries):
 
     for entry in entries:
         service = entry["service"]
+        # get(..., 0) creates an accumulator pattern.
         counts[service] = counts.get(service, 0) + 1
 
     return counts
@@ -917,13 +1036,16 @@ This demonstrates how functions form a readable analysis pipeline.
 
 Another common use case is validating structured records and building a report from the results.
 
-### Example 1 — Intermediate
+### Example 1
 
 ```python
+# Port validation helper used by config checker.
 def validate_port(port):
+    # Valid TCP/UDP ports are in 1..65535.
     return 1 <= port <= 65535
 
 def check_service_config(name, port):
+    # Convert validation result into status label.
     status = "valid" if validate_port(port) else "invalid"
     return {"service": name, "port": port, "status": status}
 
@@ -931,16 +1053,19 @@ print(check_service_config("web", 8080))
 print(check_service_config("db", 70000))
 ```
 
-### Example 2 — Complex
+### Example 2
 
 ```python
+# Validate one config record and collect all detected errors.
 def validate_record(record):
     errors = []
 
     if not record.get("host"):
+        # Empty string or missing key both fail this check.
         errors.append("missing host")
 
     port = record.get("port")
+    # Require integer type and valid range.
     if not isinstance(port, int) or not (1 <= port <= 65535):
         errors.append("invalid port")
 
@@ -953,6 +1078,7 @@ def build_validation_report(records):
     report = []
 
     for record in records:
+        # Keep each item as {name, errors} for reporting.
         report.append({
             "name": record.get("name", "unknown"),
             "errors": validate_record(record),
