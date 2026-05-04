@@ -358,6 +358,56 @@ The material introduces Unix fundamentals, command-line tools, file systems, Bas
 
 ---
 
+<details>
+<summary><strong>Week 10 — Python Functions, Validation, and Mini Toolkits</strong></summary>
+
+### Topics covered
+
+- Defining and calling functions
+- Breaking scripts into reusable logic blocks
+- Input validation and defensive checks
+- Rule-based classification and analysis
+- Building small command-line toolkits
+- Working with dictionaries and frequency maps
+- File input handling for analysis tasks
+
+### Concepts
+
+- Function-first script design
+- Single-responsibility helpers
+- Safe handling of invalid input
+- Reusable analysis patterns (count, classify, transform)
+- Report-style output formatting
+
+</details>
+
+---
+
+<details>
+<summary><strong>Week 11 — File Processing, Serialization, and Directory Analysis</strong></summary>
+
+### Topics covered
+
+- Text, CSV, JSON, and binary file processing
+- Simple encryption with Caesar cipher
+- File integrity checking using SHA-256
+- Directory structure viewing and file classification
+- Line/keyword analysis and summary reporting
+- Structured student profile generation and JSON persistence
+
+### Concepts
+
+- File format conversion and parsing
+- Reading/writing structured records
+- Hash-based integrity manifests
+- Recursive directory traversal
+- Extension-based file summaries
+- Beginner-friendly function decomposition
+
+</details>
+
+---
+
 # Requirements
 
 To run the examples you need:
