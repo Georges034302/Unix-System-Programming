@@ -408,6 +408,41 @@ The material introduces Unix fundamentals, command-line tools, file systems, Bas
 
 ---
 
+<details>
+<summary><strong>Week 12 — Processes, IPC, and Sockets in Unix and Python</strong></summary>
+
+### Topics covered
+
+- Process model in Unix (program vs process)
+- Process inspection and control (`ps`, `kill`)
+- Creating child processes with `fork`
+- Parent-child execution flow and PID handling
+- Interprocess communication (IPC) overview
+- File-based IPC patterns
+- Anonymous pipes and named pipes (FIFOs)
+- Socket-based communication fundamentals
+- TCP and UDP client-server examples
+- Signals, semaphores, shared memory, and queues
+
+### Commands introduced
+
+- `ps`
+- `kill`
+- `mkfifo`
+
+### Concepts
+
+- Process lifecycle and isolation
+- Parent-child branching after `fork`
+- IPC mechanism trade-offs
+- One-way stream communication using pipes
+- Network IPC with sockets (TCP vs UDP)
+- Synchronization and signaling primitives
+
+</details>
+
+---
+
 # Requirements
 
 To run the examples you need:
