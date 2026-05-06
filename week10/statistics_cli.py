@@ -17,6 +17,7 @@ def random_list(first, last, size):
         raise ValueError("size must be >= 1")
     if size > last - first + 1:
         raise ValueError("size is larger than the available range")
+    # random.sample returns unique values.
     return random.sample(range(first, last + 1), size)
 
 # Displays statistics based on flags: -t (total), -m (mean), -s (stdev), -n (min/max).
@@ -36,10 +37,7 @@ def show_stats(nums, flags):
 
 # Reads first, last, size from stdin.
 def read_population_input():
-    first = int(input("first: "))
-    last  = int(input("last:  "))
-    size  = int(input("size:  "))
-    return first, last, size
+    return int(input("first: ")), int(input("last:  ")), int(input("size:  "))
 
 # Reads input, generates population, shows results with flags from argv.
 def main():

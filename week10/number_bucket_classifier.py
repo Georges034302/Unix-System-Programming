@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
+"""
+Generate random numbers and group them into bucket ranges.
+Usage: python3 number_bucket_classifier.py
+"""
+
 import random
 
-# Read a positive integer from stdin.
 def read_count(prompt):
     response = input(prompt).strip()
     if not response.isdigit() or int(response) <= 0:
@@ -9,22 +13,16 @@ def read_count(prompt):
     return int(response)
 
 
-# Generate n random integers in the range [min_val, max_val].
 def generate_random_numbers(n, min_val, max_val):
-    numbers = []
-    for i in range(n):
-        numbers.append(random.randint(min_val, max_val))
-    return numbers
+    return [random.randint(min_val, max_val) for _ in range(n)]
 
 
-# Builds one bucket label for a number using the given bucket width.
 def bucket_label(value, width):
     start = (value // width) * width
     end = start + width - 1
     return f"{start}-{end}"
 
 
-# Groups numbers into buckets and stores each number with its bucket label.
 def classify_numbers(numbers, width):
     buckets = {}
     for number in numbers:
@@ -35,12 +33,10 @@ def classify_numbers(numbers, width):
     return buckets
 
 
-# Extracts the bucket start value from a label like "20-29".
 def bucket_start(label):
     return int(label.split("-")[0])
 
 
-# Reads n, generates random numbers, classifies them, and prints bucket distribution.
 def main():
     n = read_count("How many random numbers? ")
     width = 10

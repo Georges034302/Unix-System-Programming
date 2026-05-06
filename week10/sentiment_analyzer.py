@@ -5,11 +5,8 @@ Usage: python3 sentiment_analyzer.py
 Reads sentences, analyzes sentiment, and repeats until 'x' is entered.
 """
 
-# Returns sets of positive and negative sentiment words.
-def get_sentiment_words():
-    positive = {"good", "great", "excellent", "happy", "love", "nice", "amazing", "fast", "clean", "safe", "beautiful", "wonderful", "fantastic", "awesome", "enjoy", "like", "brilliant", "perfect", "smart", "kind"}
-    negative = {"bad", "terrible", "awful", "sad", "hate", "slow", "dirty", "broken", "unsafe", "angry", "ugly", "horrible", "pathetic", "stupid", "dumb", "mean", "rude", "annoying", "disgusting", "waste"}
-    return positive, negative
+POSITIVE_WORDS = {"good", "great", "excellent", "happy", "love", "nice", "amazing", "fast", "clean", "safe", "beautiful", "wonderful", "fantastic", "awesome", "enjoy", "like", "brilliant", "perfect", "smart", "kind"}
+NEGATIVE_WORDS = {"bad", "terrible", "awful", "sad", "hate", "slow", "dirty", "broken", "unsafe", "angry", "ugly", "horrible", "pathetic", "stupid", "dumb", "mean", "rude", "annoying", "disgusting", "waste"}
 
 # Removes non-alphabetic characters and converts word to lowercase.
 def normalize_word(word):
@@ -17,24 +14,15 @@ def normalize_word(word):
 
 # Returns True if word is a negation marker (not, do, does, don't, didn't, won't, etc).
 def is_negation_word(word):
-    return word == "not" or word == "do" or word == "does" or "nt" in word
+    return word in {"not", "do", "does"} or word.endswith("nt")
 
 # Returns True if the word at index is preceded by a negation.
 def is_negated(words, index):
-    if index == 0:
-        return False
-    prev_word = normalize_word(words[index - 1])
-    if is_negation_word(prev_word):
-        return True
-    if index > 1:
-        prev_prev_word = normalize_word(words[index - 2])
-        if is_negation_word(prev_prev_word):
-            return True
-    return False
+    window = words[max(0, index - 2):index]
+    return any(is_negation_word(normalize_word(word)) for word in window)
 
 # Counts positive and negative words in a sentence, handling negations.
 def score_sentence(sentence):
-    positive_words, negative_words = get_sentiment_words()
     positive = 0
     negative = 0
     words = sentence.split()
@@ -47,12 +35,12 @@ def score_sentence(sentence):
         
         negated = is_negated(words, i)
         
-        if word in positive_words:
+        if word in POSITIVE_WORDS:
             if negated:
                 negative += 1
             else:
                 positive += 1
-        elif word in negative_words:
+        elif word in NEGATIVE_WORDS:
             if negated:
                 positive += 1
             else:
@@ -72,12 +60,13 @@ def classify_sentence(sentence):
 # Prompts user for text, analyzes sentiment, repeats until 'x' entered.
 def main():
     print("Enter text to analyze sentiment (enter 'x' to exit):\n")
-    sentence = input(">>> ").strip()
-    while sentence != "x":
+    while True:
+        sentence = input(">>> ").strip()
+        if sentence == "x":
+            break
         if sentence:
             label, positive, negative = classify_sentence(sentence)
             print(f"{label.upper():8s} | +{positive} -{negative} | {sentence}\n")
-        sentence = input(">>> ").strip()
     print("Goodbye!")
 
 if __name__ == "__main__":

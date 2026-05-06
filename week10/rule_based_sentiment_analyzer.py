@@ -4,8 +4,6 @@ Analyze sentiment of text using positive/negative word lists.
 Usage: python3 rule_based_sentiment_analyzer.py
 Prompts for text input, analyzes sentiment, and repeats until 'x' is entered.
 """
-import sys
-
 POSITIVE_WORDS = {"good", "great", "excellent", "happy", "love", "nice", "amazing", "fast", "clean", "safe", "beautiful", "wonderful", "fantastic", "awesome", "enjoy", "like", "brilliant", "perfect", "brilliant", "smart", "kind"}
 NEGATIVE_WORDS = {"bad", "terrible", "awful", "sad", "hate", "slow", "dirty", "broken", "unsafe", "angry", "ugly", "horrible", "pathetic", "stupid", "dumb", "mean", "rude", "annoying", "disgusting", "waste"}
 

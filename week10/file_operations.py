@@ -10,6 +10,14 @@ Usage:
 import sys
 import re
 
+USAGE = (
+    "Usage:\n"
+    "  python3 file_operations.py -s <file>\n"
+    "  python3 file_operations.py -c <file>\n"
+    "  python3 file_operations.py -n <file>\n"
+    "  python3 file_operations.py -r <file> <pattern> <replacement>"
+)
+
 # Prints the full content of a file to stdout.
 def show_content(filename):
     with open(filename, "r", encoding="utf-8") as file:
@@ -23,13 +31,8 @@ def word_count(filename):
 
 # Finds and returns all numeric tokens in a file.
 def find_numbers(filename):
-    numbers = []
     with open(filename, "r", encoding="utf-8") as file:
-        for line in file:
-            for token in line.split():
-                if token.lstrip("-").isdigit():
-                    numbers.append(token)
-    return numbers
+        return [token for line in file for token in line.split() if token.lstrip("-").isdigit()]
 
 # Applies regex pattern substitution and prints result to stdout.
 def replace_pattern(filename, pattern, replacement):
@@ -38,34 +41,28 @@ def replace_pattern(filename, pattern, replacement):
     updated = re.sub(pattern, replacement, content)
     print(updated, end="")
 
-# Dispatches operation to the correct handler function.
-def handle_operation(op, args):
-    filename = args[2]
-    match op:
-        case "-s":
-            show_content(filename)
-        case "-c":
-            print("Word count =", word_count(filename))
-        case "-n":
-            numbers = find_numbers(filename)
-            print("Numbers found:", numbers)
-        case "-r":
-            if len(args) < 5:
-                print("Usage: python3 file_operations.py -r <file> <pattern> <replacement>")
-                return
-            replace_pattern(filename, args[3], args[4])
-        case _:
-            print(f"Invalid option: {op}")
-
-# Parses arguments and delegates to handle_operation.
 def main():
-    if len(sys.argv) < 3:
-        print("Usage:")
-        print("  python3 file_operations.py -s <file>")
-        print("  python3 file_operations.py -c <file>")
-        print("  python3 file_operations.py -n <file>")
-        print("  python3 file_operations.py -r <file> <pattern> <replacement>")
+    args = sys.argv[1:]
+    if not args:
+        print(USAGE)
         return
-    handle_operation(sys.argv[1], sys.argv)
+
+    op = args[0]
+    if op in {"-s", "-c", "-n"} and len(args) == 2:
+        filename = args[1]
+        if op == "-s":
+            show_content(filename)
+        elif op == "-c":
+            print("Word count =", word_count(filename))
+        else:
+            print("Numbers found:", find_numbers(filename))
+        return
+
+    if op == "-r" and len(args) == 4:
+        replace_pattern(args[1], args[2], args[3])
+        return
+
+    print(USAGE)
+
 if __name__ == "__main__":
     main()

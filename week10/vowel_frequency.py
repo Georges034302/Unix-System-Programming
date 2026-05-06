@@ -13,10 +13,7 @@ def frequency(char, text):
 
 # Returns a dictionary of vowel frequencies for text.
 def frequencies(text):
-    data = {}
-    for char in "aeiou":
-        data[char] = frequency(char, text)
-    return data
+    return {char: frequency(char, text) for char in "aeiou"}
 
 # Prints vowel frequencies to stdout.
 def print_frequencies(data):
@@ -32,6 +29,17 @@ def save_to_txt(records, filename="vowels.txt"):
                 file.write(f"{key} --> {data[key]}\n")
             file.write("\n")
 
+def save_to_csv(records, filename="vowels.csv"):
+    with open(filename, "w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["entry", "a", "e", "i", "o", "u"])
+        for index, data in enumerate(records, start=1):
+            writer.writerow([index, data["a"], data["e"], data["i"], data["o"], data["u"]])
+
+def save_to_json(records, filename="vowels.json"):
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(records, file, indent=2)
+
 # Prompts for strings, collects vowel frequencies, saves to files until '*' entered.
 def main():
     records = []
@@ -42,6 +50,8 @@ def main():
         print_frequencies(data)
         text = input("string: ")
     save_to_txt(records)
+    save_to_csv(records)
+    save_to_json(records)
     print("Saved to vowels.txt, vowels.csv, and vowels.json")
 
 if __name__ == "__main__":

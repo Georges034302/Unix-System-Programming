@@ -56,12 +56,11 @@ def transform_line(line):
 # Transforms numbers 0-999 to words in a file, writes to output.txt.
 def transform_file(filename):
     output_filename = "output.txt"
-    
-    with open(filename, "r") as f_in:
-        with open(output_filename, "w") as f_out:
-            for line in f_in:
-                transformed = transform_line(line)
-                f_out.write(transformed + "\n")
+
+    with open(filename, "r", encoding="utf-8") as f_in, open(output_filename, "w", encoding="utf-8") as f_out:
+        for line in f_in:
+            transformed = transform_line(line)
+            f_out.write(transformed + "\n")
 
 
 # Main entry point.

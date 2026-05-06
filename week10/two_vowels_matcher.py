@@ -7,11 +7,7 @@ Reads sentences and counts words matching the pattern (enter '*' to exit).
 
 # Counts vowels (a, e, i, o, u) in a text segment.
 def vowel_count(segment):
-    count = 0
-    for char in segment:
-        if char in "aeiou":
-            count += 1
-    return count
+    return sum(1 for char in segment if char in "aeiou")
 
 # Returns True if word has exactly 2 vowels in any z-delimited segment.
 def match_word(word):
@@ -22,11 +18,7 @@ def match_word(word):
 
 # Counts matching words in a sentence.
 def word_count(sentence):
-    count = 0
-    for word in sentence.split():
-        if match_word(word):
-            count += 1
-    return count
+    return sum(1 for word in sentence.split() if match_word(word))
 
 # Prompts user for sentences, counts matching words until '*' entered.
 def main():

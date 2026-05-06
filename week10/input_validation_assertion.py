@@ -1,30 +1,22 @@
 #!/usr/bin/env python3
+"""
+Validate two integer inputs and print a division result.
+Usage: python3 input_validation_assertion.py
+"""
 
-# Validates that input text represents an integer value.
 def validate_input(value):
-    text = value.strip()
+    try:
+        return int(value.strip())
+    except ValueError as error:
+        raise ValueError("Value is not a valid integer") from error
 
-    if text.startswith("-"):
-        text = text[1:]
-
-    if text == "" or not text.isdigit():
-        raise ValueError("Value is not a valid integer")
-
-# Validates that divisor b is not zero.
 def validate_b_not_zero(value):
     if value == 0:
         raise ValueError("b must not be zero")
 
-# Reads inputs, validates them, then prints the division result.
 def main():
-    a = input("a: ")
-    b = input("b: ")
-
-    validate_input(a)
-    validate_input(b)
-
-    a = int(a)
-    b = int(b)
+    a = validate_input(input("a: "))
+    b = validate_input(input("b: "))
 
     validate_b_not_zero(b)
 

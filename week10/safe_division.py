@@ -11,18 +11,15 @@ def div(a, b):
 
 # Prompts for two integers with validation.
 def get_user_input():
-    a_str = input("a = ").strip()
-    b_str = input("b = ").strip()
-    
-    if not a_str.lstrip("-").isdigit() or not b_str.lstrip("-").isdigit():
-        raise ValueError("Enter integers only")
-    
-    a = int(a_str)
-    b = int(b_str)
-    
+    try:
+        a = int(input("a = ").strip())
+        b = int(input("b = ").strip())
+    except ValueError as error:
+        raise ValueError("Enter integers only") from error
+
     if b == 0:
         raise ValueError("Division by zero: b cannot be zero")
-    
+
     return a, b
 
 # Prompts for input, validates, and performs division.

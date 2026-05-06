@@ -31,22 +31,14 @@ def is_prime(n):
 
 # Filters and returns only prime numbers from a list.
 def prime_list(numbers):
-    primes = []
-    for number in numbers:
-        if is_prime(number):
-            primes.append(number)
-    return primes
+    return [number for number in numbers if is_prime(number)]
 
 # Prompts user for start, end, size and generates random numbers.
 def get_user_input():
-    start_str = input("start: ").strip()
-    end_str = input("end: ").strip()
-    size_str = input("size: ").strip()
-    
-    if not start_str.isdigit() or not end_str.isdigit() or not size_str.isdigit():
-        raise ValueError("All inputs must be non-negative integers")
-    
-    return int(start_str), int(end_str), int(size_str)
+    start = int(input("start: ").strip())
+    end = int(input("end: ").strip())
+    size = int(input("size: ").strip())
+    return start, end, size
 
 # Prompts for input, generates random numbers, and displays primes.
 def main():
