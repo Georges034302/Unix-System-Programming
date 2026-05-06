@@ -25,10 +25,6 @@ def collect_file_sizes(path):
 def print_size_report(file_data):
     total_size = 0
 
-    if not file_data:
-        print("No files found in this directory.")
-        return
-
     for name, size in file_data:
         print(f"{name}: {size} bytes")
         total_size += size

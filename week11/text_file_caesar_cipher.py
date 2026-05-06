@@ -14,10 +14,12 @@ ENCRYPTED_OUTPUT = "encrypted.txt"
 def shift_character(char, shift):
     if char.islower():
         start = ord("a")
+        # Wrap within lowercase alphabet (a-z).
         return chr((ord(char) - start + shift) % 26 + start)
 
     if char.isupper():
         start = ord("A")
+        # Wrap within uppercase alphabet (A-Z).
         return chr((ord(char) - start + shift) % 26 + start)
 
     # Keep digits, spaces, and punctuation unchanged.
@@ -30,6 +32,7 @@ def transform_text(text, shift):
     result = []
 
     for char in text:
+        # Encrypt one character at a time and collect results.
         result.append(shift_character(char, shift))
 
     return "".join(result)
@@ -49,6 +52,7 @@ def read_shift_value():
     while True:
         raw_value = input("Shift value (example: 3): ").strip()
         try:
+            # Accept positive, zero, and negative integer shifts.
             return int(raw_value)
         except ValueError:
             print("Please enter a valid integer shift (example: 3).")
@@ -58,6 +62,7 @@ def main():
     input_file = input("Input text filename: ").strip()
     shift = read_shift_value()
 
+    # Load, encrypt, and save the processed content.
     original_text = read_text(input_file)
     encrypted_text = transform_text(original_text, shift)
 
