@@ -6,17 +6,20 @@ Demonstrates: lists, iteration, aggregation, indexing, formatting.
 
 file_sizes = [1200, 850, 3000, 450, 2200, 980]
 
+# Seed totals and extremes using the first element to avoid special-case checks.
 total_size = 0
 largest = file_sizes[0]
 smallest = file_sizes[0]
 
+# Accumulate total and update largest/smallest in a single pass.
 for size in file_sizes:
     total_size += size
-    if size > largest:
+    if size > largest:   # new maximum found
         largest = size
-    if size < smallest:
+    if size < smallest:  # new minimum found
         smallest = size
 
+# Divide accumulated total by count for the mean.
 average_size = total_size / len(file_sizes)
 
 print("File sizes      :", file_sizes)

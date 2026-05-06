@@ -12,15 +12,18 @@ jobs = [
     ("Printer_B", 90),
 ]
 
+# Accumulate job count and total size per printer from the jobs list.
 printers = {}
-
 for printer_name, job_size in jobs:
+    # Update existing aggregate if printer already has entries.
     if printer_name in printers:
         printers[printer_name][0] += 1
         printers[printer_name][1] += job_size
     else:
+        # First job for this printer starts count at 1.
         printers[printer_name] = [1, job_size]
 
+# Print formatted summary for each printer.
 print("Printer summary:")
 for printer_name in printers:
     job_count, total_size = printers[printer_name]

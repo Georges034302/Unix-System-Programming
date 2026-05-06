@@ -20,9 +20,10 @@ import pprint as pp
 
 n = int(input("Number of students (n): "))
 
-# generate unique 3-digit IDs
+# Sample n unique IDs from the range 100-999 to avoid duplicates.
 ids = ran.sample(range(100, 1000), n)
 
+# Outer dictionary keyed by student ID.
 students = {}
 
 for ID in ids:
@@ -33,12 +34,12 @@ for ID in ids:
     # ensure age is stored as integer
     age = int(input("Age: "))
 
-    # directly assign dictionary (cleaner)
+    # Store student fields as an inner dictionary under their ID.
     students[ID] = {
         "name": name,
         "age": age
     }
 
-# print formatted output
+# pprint formats nested structures clearly with indentation.
 print("\n--- Student Database ---")
 pp.pprint(students, indent=2, width=40)

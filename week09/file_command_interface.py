@@ -14,18 +14,20 @@ Concepts:
 - simple validation
 """
 
+# Fixed filename used for all read/write operations.
 FILENAME = "data.txt"
 
 op = input("Command (r/w/x): ")
 
+# Loop until user chooses exit command.
 while op != 'x':
 
     match op:
 
         case 'r':
-            # check if file exists by attempting safe open mode
+            # Open in append+read mode to create the file if it doesn't exist.
             h = open(FILENAME, 'a+')   # create file if not exists
-            h.seek(0)                 # move pointer to beginning
+            h.seek(0)                  # rewind pointer to beginning before reading
             content = h.read()
             h.close()
 
@@ -34,8 +36,9 @@ while op != 'x':
 
         case 'w':
             s = input("Enter text: ")
+            # Open in append mode to add a new line without overwriting.
             h = open(FILENAME, 'a')
-            h.write(s + '\n')
+            h.write(s + '\n')  # write text followed by a newline
             h.close()
             print("Line added.")
 
