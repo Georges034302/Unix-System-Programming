@@ -13,45 +13,47 @@ import struct
 def parse_floats(raw_text):
     values = []
 
-    for part in raw_text.split(","):
-        part = part.strip()
-        if part:
-            values.append(float(part))
+    for part in raw_text.split(","):  # Split input by comma delimiter
+        part = part.strip()  # Remove leading/trailing whitespace
+        if part:  # Only process non-empty strings
+            values.append(float(part))  # Convert string to float number
 
     return values
 
 # Writes float values to a binary file.
 def write_floats_binary(filename, values):
-    with open(filename, "wb") as file:
+    with open(filename, "wb") as file:  # "wb" = write in binary mode
         for value in values:
-            # Format "d" stores one double-precision float (8 bytes).
+            # struct.pack("d", value) converts float to 8-byte binary representation
+            # "d" format = double-precision float (64-bit IEEE 754 standard)
             file.write(struct.pack("d", value))
 
 # Reads all float values from a binary file.
 def read_floats_binary(filename):
     values = []
 
-    with open(filename, "rb") as file:
+    with open(filename, "rb") as file:  # "rb" = read in binary mode
         while True:
-            chunk = file.read(8)
-            if not chunk:
+            chunk = file.read(8)  # Read exactly 8 bytes (one float)
+            if not chunk:  # If nothing read, we've reached end of file
                 break
+            # struct.unpack("d", chunk) returns a tuple; [0] extracts the first (only) element
             values.append(struct.unpack("d", chunk)[0])
 
     return values
 
 # Runs the script.
 def main():
-    raw_text = input("Enter float values separated by commas: ").strip()
-    values = parse_floats(raw_text)
+    raw_text = input("Enter float values separated by commas: ").strip()  # Get input and trim whitespace
+    values = parse_floats(raw_text)  # Parse comma-separated string into list of floats
 
     filename = "floats.bin"
-    write_floats_binary(filename, values)
-    loaded_values = read_floats_binary(filename)
+    write_floats_binary(filename, values)  # Serialize floats to binary file
+    loaded_values = read_floats_binary(filename)  # Deserialize binary file back to floats
 
     print(f"Saved {len(values)} values to {filename}")
     print("Read back values:")
-    for value in loaded_values:
+    for value in loaded_values:  # Verify round-trip: written values match loaded values
         print(value)
 
 if __name__ == "__main__":
