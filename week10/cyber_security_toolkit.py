@@ -9,11 +9,14 @@ import hashlib
 def encrypt(text, shift):
     result = []
     for char in text:
+        # Rotate lowercase letters within a-z using modulo wraparound.
         if "a" <= char <= "z":
             result.append(chr((ord(char) - ord("a") + shift) % 26 + ord("a")))
+        # Rotate uppercase letters within A-Z using the same shift.
         elif "A" <= char <= "Z":
             result.append(chr((ord(char) - ord("A") + shift) % 26 + ord("A")))
         else:
+            # Keep digits, spaces, and symbols unchanged.
             result.append(char)
     return "".join(result)
 
@@ -31,6 +34,7 @@ def password_checker(password):
     has_lower = any(c.islower() for c in password)
     has_digit = any(c.isdigit() for c in password)
     has_symbol = any(not c.isalnum() for c in password)
+    # Score counts how many character categories are present.
     score = sum((has_upper, has_lower, has_digit, has_symbol))
 
     if len(password) < 8 or score <= 2:
@@ -42,41 +46,44 @@ def password_checker(password):
     return "strong"
 
 def main():
-    print("\n1 Encrypt")
-    print("2 Decrypt")
-    print("3 Hash")
-    print("4 Hash Checker")
-    print("5 Password Checker")
-    print("6 Exit")
+    last_hash = None
 
-    choice = input("Choice: ")
+    while True:
+        print("\n1 Encrypt")
+        print("2 Decrypt")
+        print("3 Hash")
+        print("4 Hash Checker (Use Last Hash)")
+        print("5 Password Checker")
+        print("6 Exit")
 
-    if choice == "1":
-        text = input("Text: ")
-        shift = int(input("Shift: "))
-        print(encrypt(text, shift))
+        choice = input("Choice: ")
 
-    elif choice == "2":
-        text = input("Text: ")
-        shift = int(input("Shift: "))
-        print(decrypt(text, shift))
-
-    elif choice == "3":
-        print(make_hash(input("Text: ")))
-
-    elif choice == "4":
-        text = input("Text: ")
-        expected = input("Hash: ")
-        print("Match" if hash_checker(text, expected) else "No match")
-
-    elif choice == "5":
-        print(password_checker(input("Password: ")))
-
-    elif choice == "6":
-        return
-
-    else:
-        print("Invalid choice.")
+        match choice:
+            case "1":
+                text = input("Text: ")
+                shift = int(input("Shift: "))
+                print(encrypt(text, shift))
+            case "2":
+                text = input("Text: ")
+                shift = int(input("Shift: "))
+                print(decrypt(text, shift))
+            case "3":
+                text = input("Text: ")
+                last_hash = make_hash(text)
+                print(last_hash)
+            case "4":
+                if last_hash is None:
+                    print("No hash stored. Use option 3 first.")
+                    continue
+                text_to_check = input("Text to check: ")
+                print("Match" if hash_checker(text_to_check, last_hash) else "No match")
+            case "5":
+                print(password_checker(input("Password: ")))
+            case "6":
+                # Exit only when the user explicitly chooses option 6.
+                return
+            case _:
+                print("Invalid choice.")
 
 if __name__ == "__main__":
     main()

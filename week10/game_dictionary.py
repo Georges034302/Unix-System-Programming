@@ -8,12 +8,14 @@ import random
 
 def read_int(prompt, minimum, maximum):
     value = int(input(prompt))
+    # Enforce an inclusive range for menu-driven numeric input.
     if not minimum <= value <= maximum:
         raise ValueError(f"Enter a value between {minimum} and {maximum}.")
     return value
 
 
 def register_players(n):
+    # Generate unique player IDs so each player has a distinct record key.
     ids = random.sample(range(1, 100), n)
     return [
         {
@@ -35,11 +37,13 @@ def show_scoreboard(players, title):
 
 
 def sort_by_top_score(players):
+    # Highest scores first for "top players" display.
     return sorted(players, key=lambda player: player["score"], reverse=True)
 
 
 def generate_scores(players):
     for player in players:
+        # Simulate one game result per player.
         player["score"] = random.randint(1, 100)
 
 
@@ -68,6 +72,7 @@ def main():
     players = []
     choice = ""
 
+    # Keep running until the user chooses exit.
     while choice != "x":
         print("\nOptions: r=register  p=play  s=show  t=top m  x=exit")
         choice = input("Choice: ").strip().lower()

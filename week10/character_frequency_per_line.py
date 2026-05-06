@@ -9,6 +9,7 @@ import sys
 def char_frequency(line):
     counts = {}
     for char in line:
+        # Ignore spaces and count all other characters.
         if char == " ":
             continue
         counts[char] = counts.get(char, 0) + 1
@@ -19,13 +20,16 @@ def most_frequent(counts):
 
 def main():
     for line in sys.stdin:
+        # Remove only the trailing newline from each input line.
         line = line.rstrip("\n")
         counts = char_frequency(line)
 
+        # If the line had no non-space characters, print a friendly message.
         if not counts:
             print("No characters found.")
             continue
 
+        # Print the most frequent character and its count for this line.
         char, count = most_frequent(counts)
         print(f"{repr(char)} -> {count}")
 

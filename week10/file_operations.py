@@ -2,20 +2,20 @@
 """
 File operations: show content, count words, find numbers, replace regex pattern.
 Usage:
-  python3 file_operations.py -s <file>              (show file content)
-  python3 file_operations.py -c <file>              (count words)
-  python3 file_operations.py -n <file>              (find all numbers)
-  python3 file_operations.py -r <file> <pattern> <replacement>  (regex replace, stdout only)
+    python3 file_operations.py -s <file>  - Show the full content of the file.
+    python3 file_operations.py -c <file>  - Count words in the file.
+    python3 file_operations.py -n <file>  - List integer numbers found in the file.
+    python3 file_operations.py -r <file> <pattern> <replacement>  - Replace regex matches and print the updated text to stdout.
 """
 import sys
 import re
 
 USAGE = (
     "Usage:\n"
-    "  python3 file_operations.py -s <file>\n"
-    "  python3 file_operations.py -c <file>\n"
-    "  python3 file_operations.py -n <file>\n"
-    "  python3 file_operations.py -r <file> <pattern> <replacement>"
+    "  python3 file_operations.py -s <file>  \t\t\t\t- Show the full content of the file.\n"
+    "  python3 file_operations.py -c <file>  \t\t\t\t- Count words in the file.\n"
+    "  python3 file_operations.py -n <file>  \t\t\t\t- List integer numbers found in the file.\n"
+    "  python3 file_operations.py -r <file> <pattern> <replacement>  \t- Replace regex matches and print the updated text to stdout."
 )
 
 # Prints the full content of a file to stdout.
@@ -32,6 +32,8 @@ def word_count(filename):
 # Finds and returns all numeric tokens in a file.
 def find_numbers(filename):
     with open(filename, "r", encoding="utf-8") as file:
+        # Treat each whitespace-separated token as a candidate number.
+        # lstrip("-") allows negative integers such as -42.
         return [token for line in file for token in line.split() if token.lstrip("-").isdigit()]
 
 # Applies regex pattern substitution and prints result to stdout.
@@ -42,12 +44,14 @@ def replace_pattern(filename, pattern, replacement):
     print(updated, end="")
 
 def main():
+    # Skip script name and parse only user-provided arguments.
     args = sys.argv[1:]
     if not args:
         print(USAGE)
         return
 
     op = args[0]
+    # Handle single-file operations with exactly one filename argument.
     if op in {"-s", "-c", "-n"} and len(args) == 2:
         filename = args[1]
         if op == "-s":
@@ -58,6 +62,7 @@ def main():
             print("Numbers found:", find_numbers(filename))
         return
 
+    # Regex replace requires: -r <file> <pattern> <replacement>.
     if op == "-r" and len(args) == 4:
         replace_pattern(args[1], args[2], args[3])
         return
