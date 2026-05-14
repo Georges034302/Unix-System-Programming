@@ -454,4 +454,4 @@ To run the examples you need:
   
 ---
 
-#### 👤 <sub><em>Author: *Georges Bou Ghantous*</em></sub>
+<sub><i><span style="color:#B0B0B0">👤 Author: **Dr. Georges Bou Ghantous**</span></i></sub>
