@@ -31,17 +31,22 @@ def receive_server_reply(client_socket):
     data = client_socket.recv(BUFFER_SIZE)
     return data.decode("utf-8")
 
+def manage_messsaging(client_socket, message):
 
-# Run the client workflow.
-def main():
-    client_socket = create_client_socket(HOST, PORT)
-
-    message = "Hello, Server!"
     send_server_message(client_socket, message)
 
     response = receive_server_reply(client_socket)
     print(f"Received from server: {response}")
 
+
+# Run the client workflow.
+def main():
+    client_socket = create_client_socket(HOST, PORT)
+
+    message = input('Client: ')
+    while message != 'bye':
+        manage_messsaging(client_socket, message)
+        message = input('Client: ')
     client_socket.close()
 
 

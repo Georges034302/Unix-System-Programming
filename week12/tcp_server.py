@@ -37,10 +37,19 @@ def send_client_reply(connection, message):
 # Handle one client connection.
 def handle_client(connection, address):
     print(f"Connected by {address}")
-    message = receive_client_message(connection)
-    print(f"Received from client: {message}")
-    reply = "Hello, Client! I received your message."
-    send_client_reply(connection, reply)
+    while True:
+        message = receive_client_message(connection)
+        if not message:
+            print("Client disconnected.")
+            print("Closing connection. Goodbye!")
+            break
+        print(f"Received from client: {message}")
+        reply = f"Hello, Client! I received your message '{message}'."
+        try:
+            send_client_reply(connection, reply)
+        except BrokenPipeError:
+            print("Broken pipe: client closed connection.")
+            break
 
 
 # Run the server workflow.
@@ -49,9 +58,8 @@ def main():
     print(f"TCP server listening on {HOST}:{PORT}")
 
     connection, address = server_socket.accept()
-    with connection:
-        handle_client(connection, address)
-
+    handle_client(connection, address)
+    connection.close()
     server_socket.close()
 
 
