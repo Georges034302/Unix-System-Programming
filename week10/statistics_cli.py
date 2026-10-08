@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
 Generate random numbers and compute statistics.
-Usage: python3 statistics_cli.py [-t] [-m] [-s] [-n]
-Flags: -t (total), -m (mean), -s (standard deviation), -n (min/max)
-Prompts for first, last, size then displays population and requested statistics.
+Usage:
+    python3 statistics_cli.py [-t] [-m] [-s] [-n]
+    Enter the first value, last value, and sample size when prompted.
+    Use -t for total, -m for mean, -s for standard deviation, and -n for min/max.
+    The -s flag requires a sample size of at least 2.
 """
 import random
 import statistics
@@ -11,13 +13,6 @@ import sys
 
 # Generates size unique random integers in range [first, last].
 def random_list(first, last, size):
-    if first > last:
-        raise ValueError("first must be <= last")
-    if size < 1:
-        raise ValueError("size must be >= 1")
-    if size > last - first + 1:
-        raise ValueError("size is larger than the available range")
-    # random.sample returns unique values.
     return random.sample(range(first, last + 1), size)
 
 # Displays statistics based on flags: -t (total), -m (mean), -s (stdev), -n (min/max).
@@ -27,10 +22,7 @@ def show_stats(nums, flags):
     if "-m" in flags:
         print(f"Mean  = {statistics.mean(nums):.2f}")
     if "-s" in flags:
-        if len(nums) > 1:
-            print(f"STDV  = {statistics.stdev(nums):.2f}")
-        else:
-            print("STDV  = N/A")
+        print(f"STDV  = {statistics.stdev(nums):.2f}")
     if "-n" in flags:
         print("Min   =", min(nums))
         print("Max   =", max(nums))

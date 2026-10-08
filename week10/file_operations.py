@@ -10,6 +10,7 @@ Usage:
 import sys
 import re
 
+
 USAGE = (
     "Usage:\n"
     "  python3 file_operations.py -s <file>  \t\t\t\t- Show the full content of the file.\n"

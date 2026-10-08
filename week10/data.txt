@@ -1,0 +1,6 @@
+Welcome to Python Functions 
+Enter a key between 0 and 25
+
+The Caesar algorithm:
+- encrypt data.txt
+- produces encrypted.txt
