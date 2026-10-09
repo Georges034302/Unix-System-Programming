@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
+"""
+Display a meaning and note for a service status code.
+
+Usage:
+    python3 service_status.py
+    Enter the service name and numeric status code.
+"""
 
 # Read service name and integer status code from the user
-service = input("Service name: ")
-status_code = int(input("Status code: "))  # convert string input to integer
+service = input("Service name: ")  # Read the service being checked.
+status_code = int(input("Status code: "))  # Convert its status code to an integer.
 
 # match compares status_code against each case value
 # only the matching case block executes — similar to switch in other languages

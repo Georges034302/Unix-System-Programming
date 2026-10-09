@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Compare simple and compound interest for an investment.
+
+Usage:
+    python3 interest_calculator.py
+    Enter the principal, annual interest rate as a percentage, and number of years.
+"""
 
 # Simple Interest  : earned only on the original principal  →  SI = P × r × t
 # Compound Interest: earned on principal + previously earned interest → CI = P(1+r)^t - P

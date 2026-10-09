@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
+"""
+Label an error severity and suggest an action.
+
+Usage:
+    python3 error_severity.py
+    Enter an error title and a severity from 1 to 5.
+"""
 
 # Read error details from the user
-title = input("Error title: ")
-severity = int(input("Severity (1-5): "))  # convert string input to integer
+title = input("Error title: ")  # Read a short description of the error.
+severity = int(input("Severity (1-5): "))  # Convert the entered severity to an integer.
 
 # Cascaded if-elif-else maps each severity level to a label and recommended action
 # Each elif is only reached if all previous conditions were False

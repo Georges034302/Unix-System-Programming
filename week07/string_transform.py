@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
+"""
+Display several transformations of entered text.
 
-text = input("Text: ")
+Usage:
+    python3 string_transform.py
+    Enter text when prompted.
+"""
+
+text = input("Text: ")  # Read the text to transform.
 
 upper_text    = text.upper()           # convert all characters to uppercase
 lower_text    = text.lower()           # convert all characters to lowercase
@@ -9,7 +16,7 @@ no_spaces     = text.replace(" ", "")  # remove every space
 word_count    = len(text.split())      # split into words, count them
 
 # split() returns a list; index [0] gets the first element
-first_word = text.split()[0] if text.split() else ""
+first_word = text.split()[0] if text.split() else ""  # Use an empty string if no words were entered.
 
 print(f"Original   : {text}")
 print(f"Upper      : {upper_text}")

@@ -12,11 +12,11 @@ total_chars = 0
 longest     = ""
 shortest    = ""
 
-line = input("Line (or END): ")
+line = input("Line (or END): ")  # Read the first line or the stop word.
 
 while line != "END":
-    line_count  += 1
-    total_chars += len(line)
+    line_count  += 1  # Count this line.
+    total_chars += len(line)  # Add its characters to the total.
 
     if line_count == 1:                  # first line sets the baseline
         longest = shortest = line
@@ -24,11 +24,11 @@ while line != "END":
         if len(line) > len(longest):     longest  = line
         if len(line) < len(shortest):    shortest = line
 
-    line = input("Line (or END): ")
+    line = input("Line (or END): ")  # Read the next line.
 
 # --- Summary ---
-print(f"\nLines   : {line_count}")
-print(f"Chars   : {total_chars}")
+print(f"\nLines   : {line_count}")  # Show how many lines were entered.
+print(f"Chars   : {total_chars}")  # Show the total characters across all lines.
 
 if line_count > 0:
     print(f"Longest : {longest}")

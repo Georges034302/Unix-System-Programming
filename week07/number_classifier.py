@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
+"""
+Classify an integer by sign, parity, divisibility, and size.
 
-n = int(input("Number: "))
+Usage:
+    python3 number_classifier.py
+    Enter an integer when prompted.
+"""
+
+n = int(input("Number: "))  # Read the integer to classify.
 
 # --- Sign ---
 if n > 0:
@@ -15,9 +22,9 @@ else:
 parity = "Even" if n % 2 == 0 else "Odd"
 
 # --- Divisibility ---
-div3  = "Yes" if n % 3  == 0 else "No"
-div5  = "Yes" if n % 5  == 0 else "No"
-div10 = "Yes" if n % 10 == 0 else "No"
+div3  = "Yes" if n % 3  == 0 else "No"  # Check if divisible by 3.
+div5  = "Yes" if n % 5  == 0 else "No"  # Check if divisible by 5.
+div10 = "Yes" if n % 10 == 0 else "No"  # Check if divisible by 10.
 
 # --- Size ---
 # abs() handles negatives so -500 is classified the same as 500
