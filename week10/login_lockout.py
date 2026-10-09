@@ -13,6 +13,7 @@ from datetime import datetime
 MAX_LOGIN_ATTEMPTS = 3
 
 
+# Add a timestamped login attempt to a copy of the existing logs.
 def create_login_log(login_logs, username, status):
     timestamp = datetime.now().isoformat(timespec="seconds")
     updated_logs = login_logs.copy()
@@ -25,6 +26,7 @@ def create_login_log(login_logs, username, status):
     return updated_logs
 
 
+# Prompt for login credentials and lock out after the maximum number of attempts.
 def login_lockout(username, password):
     login_logs = {}
 
@@ -46,6 +48,8 @@ def login_lockout(username, password):
     print("Account locked after too many failed attempts.")
     return login_logs
 
+
+# Collect demo credentials, run the login flow, and print its logs.
 def main():
     username = input("Create demo username: ")
     password = input("Create demo password: ")

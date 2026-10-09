@@ -48,6 +48,7 @@ def handle_top(players):
     for player in top_players:
         print(f"{player['id']:02d}  {player['name']:<10}  {player['score']:>5}")
 
+# Run the player registration, scoring, and scoreboard menu.
 def main():
     players = []
     choice = ""

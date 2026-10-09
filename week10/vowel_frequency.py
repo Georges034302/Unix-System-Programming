@@ -29,6 +29,7 @@ def save_to_txt(records, filename="vowels.txt"):
                 file.write(f"{key} --> {data[key]}\n")
             file.write("\n")
 
+# Write vowel frequency records as CSV.
 def save_to_csv(records, filename="vowels.csv"):
     with open(filename, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
@@ -36,6 +37,7 @@ def save_to_csv(records, filename="vowels.csv"):
         for index, data in enumerate(records, start=1):
             writer.writerow([index, data["a"], data["e"], data["i"], data["o"], data["u"]])
 
+# Write vowel frequency records as JSON.
 def save_to_json(records, filename="vowels.json"):
     with open(filename, "w", encoding="utf-8") as file:
         json.dump(records, file, indent=2)

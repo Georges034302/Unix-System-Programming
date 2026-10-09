@@ -44,6 +44,7 @@ def replace_pattern(filename, pattern, replacement):
     updated = re.sub(pattern, replacement, content)
     print(updated, end="")
 
+# Parse command-line arguments and run the requested file operation.
 def main():
     # Skip script name and parse only user-provided arguments.
     args = sys.argv[1:]
