@@ -9,15 +9,17 @@ Usage:
 
 import re
 
-text = input("Text: ")
+text = input("Text: ")  # Read the text to search.
 
-# --- Extract ---
-# \d{2}/\d{2}/\d{4} matches dates in dd/mm/yyyy format
-# \b ensures we match whole tokens, not partial ones
+# \b matches a word boundary.
+# \d matches one digit.
+# {2} repeats the previous pattern exactly two times.
+# {4} repeats the previous pattern exactly four times.
+# / matches a literal slash.
 pattern = r"\b\d{2}/\d{2}/\d{4}\b"
 
-# --- Output ---
-print(f"Dates found : {len(re.findall(pattern, text))}")
+dates = list(re.finditer(pattern, text))    # Find each date and its position.
 
-for match in re.finditer(pattern, text):  # finditer gives match objects with position info
-    print(f"  {match.group()} at position {match.start()}")
+print(f"Dates found : {len(dates)}")        # Show how many dates were found.
+for match in dates:
+    print(f"  {match.group()} at position {match.start()}")  # Show the date and its starting position.

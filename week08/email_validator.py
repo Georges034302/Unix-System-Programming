@@ -1,30 +1,27 @@
 #!/usr/bin/env python3
 """
-Validate email addresses entered interactively.
+Check whether one entered email matches a pattern.
 
 Usage:
     python3 email_validator.py
-    Enter email addresses one at a time; enter STOP to finish.
+    Enter an email address when prompted.
 """
 
 import re
 
-# local@domain.ext — letters/digits/symbols before @, domain, then 2+ letter extension
+# r keeps backslashes in the pattern for the regex engine.
+# ^ matches the start of the email; $ matches its end.
+# [...] matches one character from the listed letters, digits, or symbols.
+# A-Z and a-z mean letter ranges; 0-9 means digits.
+# + means one or more characters from the preceding character set.
+# @ and . match those literal characters; \. makes the dot literal.
+# {2,} means at least two letters for the ending.
+# The hyphen at the end of [...] is treated as a literal hyphen.
 pattern = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
 
-valid_count = invalid_count = 0
+email = input("Email: ")
 
-email = input("Email (or STOP): ")
-
-while email != "STOP":
-    if re.match(pattern, email):  # re.match checks from the start of the string
-        print(f"{email} -> valid")
-        valid_count += 1
-    else:
-        print(f"{email} -> invalid")
-        invalid_count += 1
-    email = input("Email (or STOP): ")
-
-# --- Summary ---
-print(f"\nValid   : {valid_count}")
-print(f"Invalid : {invalid_count}")
+if re.match(pattern, email):
+    print("Email matches the pattern.")
+else:
+    print("Email does not match the pattern.")

@@ -5,34 +5,38 @@ Analyze a password for length, character classes, and strength.
 Usage:
     python3 password_analyzer.py
     Enter a password when prompted.
+    A password is checked for at least 8 characters, an uppercase letter,
+    a lowercase letter, a digit, and a special character.
 """
 
 import re
 
-password = input("Password: ")
+password = input("Password: ")  # Read the password to check.
 
-# --- Check each property ---
-# re.search returns a match object on success, or None on failure
-length_ok   = len(password) >= 8
-has_upper   = re.search(r"[A-Z]", password) is not None       # at least one uppercase
-has_lower   = re.search(r"[a-z]", password) is not None       # at least one lowercase
-has_digit   = re.search(r"\d", password) is not None          # at least one digit
-has_special = re.search(r"[^A-Za-z0-9]", password) is not None  # at least one special char
+length_ok = len(password) >= 8  # Check for at least 8 characters.
+has_upper = re.search(r"[A-Z]", password)  # Check for an uppercase letter.
+has_lower = re.search(r"[a-z]", password)  # Check for a lowercase letter.
+has_digit = re.search(r"\d", password)  # Check for a digit.
+has_special = re.search(r"[^A-Za-z0-9]", password)  # Check for a special character.
 
-# --- Score ---
-# each True adds 1 (True == 1 in Python)
-score = length_ok + has_upper + has_lower + has_digit + has_special
+score = 0  # Count how many password rules are satisfied.
+if length_ok:
+    score += 1  # Add a point for meeting the length rule.
+if has_upper:
+    score += 1  # Add a point for having an uppercase letter.
+if has_lower:
+    score += 1  # Add a point for having a lowercase letter.
+if has_digit:
+    score += 1  # Add a point for having a digit.
+if has_special:
+    score += 1  # Add a point for having a special character.
 
-if score == 5:    strength = "Strong"
-elif score >= 3:  strength = "Medium"
-else:             strength = "Weak"
+if score == 5:
+    strength = "Strong"  # All five rules are satisfied.
+elif score >= 3:
+    strength = "Medium"  # Three or four rules are satisfied.
+else:
+    strength = "Weak"  # Fewer than three rules are satisfied.
 
-# --- Output ---
-print(f"Strength : {strength}")
-print(f"Score    : {score}/5")
-
-if not length_ok:   print("Issue: at least 8 characters required")
-if not has_upper:   print("Issue: add an uppercase letter")
-if not has_lower:   print("Issue: add a lowercase letter")
-if not has_digit:   print("Issue: add a digit")
-if not has_special: print("Issue: add a special character")
+print(f"Strength : {strength}")  # Display the strength rating.
+print(f"Score    : {score}/5")  # Display how many rules passed.

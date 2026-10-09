@@ -9,17 +9,19 @@ Usage:
 
 import re
 
-text = input("Sentence: ")
+text = input("Sentence: ")  # Read the sentence to check.
 
-# --- Detect repeated consecutive words ---
-# (\w+) captures a word, \s+ matches spaces, \1 matches the same word again
+# r keeps backslashes for the regex engine.
+# \b matches a word boundary.
+# (\w+) captures one or more word characters as group 1.
+# \s+ matches one or more whitespace characters between the words.
+# \1 matches the same word captured in group 1.
 pattern = r"\b(\w+)\s+\1\b"
-matches = re.findall(pattern, text, flags=re.IGNORECASE)  # findall returns all captured groups
+matches = re.findall(pattern, text, flags=re.IGNORECASE)  # Find repeated words, ignoring letter case.
 
-# --- Output ---
 if matches:
-    print(f"Repeated words: {len(matches)}")
+    print(f"Repeated words: {len(matches)}")  # Show how many repetitions were found.
     for word in matches:
-        print(f"  - {word}")
+        print(f"  - {word}")  # Show each repeated word.
 else:
-    print("No repeated words found")
+    print("No repeated words found")  # Report when there are no matches.
