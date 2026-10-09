@@ -21,6 +21,7 @@ def child_task():
 def run_process_demo():
     process = Process(target=child_task)
     process.start()
+    # join() keeps the parent from reporting completion before the child exits.
     process.join()
 
     print(f"Parent process PID: {os.getpid()}")

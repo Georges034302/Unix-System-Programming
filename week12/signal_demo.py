@@ -15,11 +15,13 @@ import time
 # Handle incoming signal and exit cleanly.
 def handle_signal(signum, _frame):
     print(f"Signal received: {signum}. Exiting cleanly.")
+    # Raising SystemExit ends the program after the registered handler runs.
     raise SystemExit(0)
 
 
 # Register signal handlers.
 def register_handlers():
+    # Replace the default interrupt/termination behavior with our handler.
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
 

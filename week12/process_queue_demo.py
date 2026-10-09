@@ -13,11 +13,13 @@ from multiprocessing import Process, Queue
 # Child sends one dictionary object to queue.
 def child_put_message(queue):
     payload = {"source": "child", "message": "Hello via queue", "id": 1}
+    # Queue safely transports picklable Python objects between processes.
     queue.put(payload)
 
 
 # Parent receives one object from queue.
 def parent_get_message(queue):
+    # get() blocks until an object is available from the child.
     return queue.get()
 
 
@@ -31,6 +33,7 @@ def run_queue_demo():
     message = parent_get_message(queue)
     print(f"Parent received: {message}")
 
+    # Wait for the producer process to finish after receiving its payload.
     process.join()
 
 

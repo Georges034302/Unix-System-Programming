@@ -5,7 +5,7 @@ Extract lines containing a keyword and save them to a new file.
 Usage:
 1. Run: python3 keyword_line_extractor.py
 2. Enter input filename and keyword.
-3. The script always saves matching lines to matches.txt.
+3. Matching is case-insensitive; the script saves matching lines to matches.txt.
 """
 OUTPUT_FILE = "matches.txt"
 
@@ -15,6 +15,7 @@ def filter_matching_lines(lines, keyword):
 
     for line in lines:
         # Case-insensitive plain text matching.
+        # Keep the original line so its capitalization and punctuation are preserved.
         if keyword.lower() in line.lower():
             matches.append(line)
 

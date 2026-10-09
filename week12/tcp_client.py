@@ -5,6 +5,7 @@ Simple TCP client: connect to server, send message, print reply.
 Usage:
 1. Start server first: python3 tcp_server.py
 2. Then run client: python3 tcp_client.py
+3. Type messages; enter 'bye' to stop sending and close the client connection.
 """
 
 import socket
@@ -17,6 +18,7 @@ BUFFER_SIZE = 1024
 # Create and connect a TCP client socket.
 def create_client_socket(host, port):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # TCP connect completes the handshake before the client sends any data.
     client_socket.connect((host, port))
     return client_socket
 
@@ -35,6 +37,7 @@ def manage_messsaging(client_socket, message):
 
     send_server_message(client_socket, message)
 
+    # Wait for the server's reply before prompting for the next message.
     response = receive_server_reply(client_socket)
     print(f"Received from server: {response}")
 

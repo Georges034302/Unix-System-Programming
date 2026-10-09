@@ -15,18 +15,22 @@ def read_lines(filename):
 
 # Strips newline from a line.
 def clean_line(line):
+    # Remove only the line terminator so other whitespace remains part of the text.
     return line.rstrip("\n")
 
 # Finds shortest line by comparing lengths.
 def find_shortest_line(lines):
+    # Compare cleaned text, so the newline added by readlines() is not counted.
     return min(lines, key=lambda line: len(clean_line(line)))
 
 # Finds longest line by comparing lengths.
 def find_longest_line(lines):
+    # Use the same length rule as the shortest-line calculation.
     return max(lines, key=lambda line: len(clean_line(line)))
 
 # Finds blank lines in text.
 def find_blank_lines(lines):
+    # Report human-readable line numbers, which start at one rather than zero.
     blank_numbers = [i + 1 for i, line in enumerate(lines) if clean_line(line).strip() == ""]
     return blank_numbers
 

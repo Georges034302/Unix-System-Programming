@@ -5,6 +5,7 @@ Write one message to a named pipe (FIFO).
 Usage:
 1. Start reader first: python3 fifo_reader.py
 2. Then run writer: python3 fifo_writer.py
+3. The writer sends one message through the named pipe.
 """
 
 import os
@@ -20,6 +21,7 @@ def ensure_fifo_exists(path):
 
 # Write one message into FIFO.
 def write_to_fifo(path, message):
+    # Opening a FIFO for writing connects to the reader and may wait for it.
     with open(path, "w", encoding="utf-8") as fifo_file:
         fifo_file.write(message)
 

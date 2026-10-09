@@ -5,6 +5,7 @@ Create a child process using os.fork and show parent/child PIDs.
 Usage:
 1. Run: python3 fork_process_demo.py
 2. Observe output from both parent and child process.
+3. The parent waits for the child so it can report when the child has finished.
 """
 
 import os
@@ -20,6 +21,7 @@ def print_process_info(role):
 def run_fork_demo():
     print_process_info("START")
 
+    # fork() duplicates the running process; its return value distinguishes branches.
     child_pid = os.fork()
 
     if child_pid == 0:
@@ -30,6 +32,7 @@ def run_fork_demo():
         # Parent branch: fork returns child's PID in parent process.
         print(f"[PARENT] Child PID is {child_pid}")
         print_process_info("PARENT")
+        # Reap the child and ensure this message follows the child's completion.
         os.waitpid(child_pid, 0)
         print("[PARENT] Child has finished")
 

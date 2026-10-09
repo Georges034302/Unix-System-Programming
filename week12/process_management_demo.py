@@ -13,11 +13,13 @@ import subprocess
 
 # Start a simple long-running process for demo.
 def start_demo_process():
+    # Keep the child alive long enough for the parent to inspect and stop it.
     return subprocess.Popen(["sleep", "60"])
 
 
 # Show one process entry from ps output.
 def show_process_info(pid):
+    # Ask ps for only the selected PID and the columns useful in this demo.
     result = subprocess.run(
         ["ps", "-p", str(pid), "-o", "pid,ppid,stat,cmd"],
         check=True,
@@ -30,6 +32,7 @@ def show_process_info(pid):
 # Stop process gracefully with SIGTERM.
 def stop_process(process):
     process.send_signal(signal.SIGTERM)
+    # wait() collects the child's exit status instead of leaving a zombie.
     process.wait()
 
 

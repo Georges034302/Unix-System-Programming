@@ -5,6 +5,7 @@ Simple TCP server: accept one client, print message, send reply.
 Usage:
 1. Run server first: python3 tcp_server.py
 2. In another terminal run: python3 tcp_client.py
+3. The server handles one client connection and replies to each received message.
 """
 
 import socket
@@ -17,8 +18,10 @@ BUFFER_SIZE = 1024
 # Create and configure a TCP server socket.
 def create_server_socket(host, port):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Allow quick restarts when the previous server used this local address.
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind((host, port))
+    # listen() prepares the socket; accept() below waits for a client to connect.
     server_socket.listen(1)
     return server_socket
 
@@ -38,6 +41,7 @@ def send_client_reply(connection, message):
 def handle_client(connection, address):
     print(f"Connected by {address}")
     while True:
+        # An empty read means the peer closed its TCP connection.
         message = receive_client_message(connection)
         if not message:
             print("Client disconnected.")

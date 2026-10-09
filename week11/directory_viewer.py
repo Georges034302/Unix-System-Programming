@@ -5,7 +5,7 @@ Display directory structure in a tree view.
 Usage:
 1. Run: python3 directory_viewer.py
 2. Enter a directory path.
-3. The script prints the directory tree with indentation.
+3. The script prints the directory tree with indentation, including nested folders.
 """
 import os
 
@@ -34,12 +34,14 @@ def print_items(path, prefix):
     items = list_items(path)
     for index, item in enumerate(items):
         item_path = os.path.join(path, item)
+        # The final entry uses a different connector so the tree branches line up.
         is_last = (index == len(items) - 1)
         connector = get_connector(is_last)
         
         if is_directory(item_path):
             print_node(prefix, connector, f"{item}/")
             next_prefix = prefix + get_extension(is_last)
+            # Recurse into subdirectories while extending the tree's indentation.
             print_items(item_path, next_prefix)
         else:
             print_node(prefix, connector, item)

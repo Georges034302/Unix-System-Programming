@@ -5,6 +5,7 @@ Simple UDP server: receive one datagram, print it, send reply.
 Usage:
 1. Run server first: python3 udp_server.py
 2. In another terminal run: python3 udp_client.py
+3. The server replies to one datagram, then closes its socket.
 """
 
 import socket
@@ -23,6 +24,7 @@ def create_udp_server_socket(host, port):
 
 # Receive one UDP message and sender address.
 def receive_udp_message(server_socket):
+    # recvfrom provides the sender address needed to return the reply.
     data, address = server_socket.recvfrom(BUFFER_SIZE)
     return data.decode("utf-8"), address
 

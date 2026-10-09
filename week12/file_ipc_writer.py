@@ -5,6 +5,7 @@ Write a message into a shared text file for file-based IPC.
 Usage:
 1. Run this writer first: python3 file_ipc_writer.py
 2. Run reader next: python3 file_ipc_reader.py
+3. The writer creates or replaces shared_message.txt.
 """
 
 SHARED_FILE = "shared_message.txt"
@@ -12,6 +13,7 @@ SHARED_FILE = "shared_message.txt"
 
 # Save message to shared file.
 def write_message(path, message):
+    # Write a newline so the shared file is readable as a normal text record.
     with open(path, "w", encoding="utf-8") as file:
         file.write(message + "\n")
 

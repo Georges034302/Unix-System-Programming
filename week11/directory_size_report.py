@@ -5,7 +5,7 @@ List files in a directory with their sizes and total size.
 Usage:
 1. Run: python3 directory_size_report.py
 2. Enter a directory path.
-3. The script prints each file size and the total size.
+3. The script prints each file directly inside that directory and the total size.
 """
 import os
 
@@ -15,6 +15,7 @@ def collect_file_sizes(path):
 
     for name in os.listdir(path):
         full_path = os.path.join(path, name)
+        # Ignore subdirectories; this report only counts files at the given path.
         if os.path.isfile(full_path):
             size = os.path.getsize(full_path)
             results.append((name, size))
@@ -27,6 +28,7 @@ def print_size_report(file_data):
 
     for name, size in file_data:
         print(f"{name}: {size} bytes")
+        # Add each displayed file's size to the overall total.
         total_size += size
 
     print(f"Total size: {total_size} bytes")
