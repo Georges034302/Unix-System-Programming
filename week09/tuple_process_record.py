@@ -2,6 +2,10 @@
 """
 Represent a process as a fixed record using a tuple.
 Demonstrates: tuples, indexing, unpacking, immutability by design.
+
+Usage:
+    python3 tuple_process_record.py
+    The script prints a sample process record and an updated record.
 """
 
 # Tuple represents a fixed process snapshot: (command, pid, status).

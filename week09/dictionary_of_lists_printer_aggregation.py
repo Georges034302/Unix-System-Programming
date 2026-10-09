@@ -2,6 +2,10 @@
 """
 Aggregate printer jobs using a dictionary of lists.
 Demonstrates: dictionary of lists, grouped counters, grouped totals.
+
+Usage:
+    python3 dictionary_of_lists_printer_aggregation.py
+    The script aggregates and prints the sample printer jobs.
 """
 
 jobs = [

@@ -2,6 +2,11 @@
 """
 Convert a decimal number (0–255) to 8-bit binary.
 
+Usage:
+    python3 decimal_to_binary.py
+    Enter an integer from 0 to 255 when prompted.
+    The script prints the 8-bit binary representation.
+
 Concepts:
 - input validation
 - repeated division by 2

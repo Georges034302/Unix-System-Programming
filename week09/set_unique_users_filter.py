@@ -2,6 +2,10 @@
 """
 Remove duplicate usernames and perform membership checks.
 Demonstrates: sets, uniqueness, membership testing.
+
+Usage:
+    python3 set_unique_users_filter.py
+    The script prints sample login attempts, unique users, and membership checks.
 """
 
 # Raw list preserving all login events including duplicates.

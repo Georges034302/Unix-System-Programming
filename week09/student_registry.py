@@ -13,6 +13,11 @@ Concepts:
 - random unique IDs
 - input validation (basic)
 - clean data modelling
+
+Usage:
+    python3 student_registry.py
+    Enter the number of students, then enter each student's name and age.
+    The script prints the generated student records.
 """
 
 import random as ran

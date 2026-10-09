@@ -2,6 +2,10 @@
 """
 Store service configuration in a dictionary of dictionaries.
 Demonstrates: nested dictionaries, nested access, update, reporting.
+
+Usage:
+    python3 dictionary_of_dictionaries_service_config.py
+    The script updates and prints a sample service configuration.
 """
 
 # Each service maps to a nested dictionary with status and port fields.

@@ -2,6 +2,10 @@
 """
 Analyse a list of file sizes and produce a summary report.
 Demonstrates: lists, iteration, aggregation, indexing, formatting.
+
+Usage:
+    python3 list_file_size_analyzer.py
+    The script prints a summary of its built-in sample file sizes.
 """
 
 file_sizes = [1200, 850, 3000, 450, 2200, 980]

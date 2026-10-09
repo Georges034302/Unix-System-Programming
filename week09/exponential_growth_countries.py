@@ -13,6 +13,10 @@ Country,Population,Rate
 Example:
 Australia,26000000,0.012
 USA,331000000,0.007
+
+Usage:
+    python3 exponential_growth_countries.py countries.txt
+    Enter the number of years when prompted to print a growth report.
 """
 
 import sys

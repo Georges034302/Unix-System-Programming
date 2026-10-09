@@ -2,6 +2,10 @@
 """
 Store marks in a nested list and calculate row totals.
 Demonstrates: nested lists, nested indexing, nested iteration.
+
+Usage:
+    python3 nested_list_student_marks.py
+    The script prints sample student mark rows and their totals.
 """
 
 # Each inner list holds one student's marks for multiple subjects.

@@ -4,6 +4,11 @@ Determine the day of the week using:
 1. total days from start of year
 2. simple offset calculation
 
+Usage:
+    python3 day_of_week.py
+    Enter a day and month when prompted. The example assumes a non-leap year
+    with January 1 on Monday.
+
 Concepts:
 - lists
 - loops

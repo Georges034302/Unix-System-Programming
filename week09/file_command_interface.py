@@ -7,6 +7,10 @@ r → read file content
 w → write new line to file
 x → exit program
 
+Usage:
+    python3 file_command_interface.py
+    At the prompt, enter r to read data.txt, w to append a line, or x to exit.
+
 Concepts:
 - loops
 - match-case

@@ -2,6 +2,10 @@
 """
 Look up and update user roles in a dictionary.
 Demonstrates: dictionaries, access by key, update, iteration.
+
+Usage:
+    python3 dictionary_user_role_lookup.py
+    The script prints the sample roles, looks up a role, and shows an updated role.
 """
 
 # Each key is a username, each value is the role assigned to that user.

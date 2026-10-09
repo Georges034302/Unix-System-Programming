@@ -2,6 +2,10 @@
 """
 Model student records using a list of dictionaries containing mark lists.
 Demonstrates: multi-level data model, nested access, aggregation.
+
+Usage:
+    python3 multi_level_student_records.py
+    The script prints the average marks for its sample students.
 """
 
 # Each student is a dictionary with a name and a list of numeric marks.
