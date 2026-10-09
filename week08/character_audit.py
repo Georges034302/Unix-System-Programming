@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Count character categories in a line of text.
+
+Usage:
+    python3 character_audit.py
+    Enter text when prompted; the script prints its character counts.
+"""
 
 text = input("Text: ")
 

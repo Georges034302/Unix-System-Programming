@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Parse and evaluate a basic arithmetic expression.
+
+Usage:
+    python3 calculator_parser.py
+    Enter an expression with two integers and one of +, -, *, or /.
+"""
 
 import re
 import sys

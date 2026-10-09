@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Find dates in dd/mm/yyyy format in a line of text.
+
+Usage:
+    python3 date_extractor.py
+    Enter text when prompted; matching dates and their positions are printed.
+"""
 
 import re
 

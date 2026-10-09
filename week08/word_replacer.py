@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+"""
+Replace chosen whole words in a sentence.
+
+Usage:
+    python3 word_replacer.py
+    Enter the sentence, then enter words to replace one at a time.
+    Enter STOP when prompted for a word to finish.
+"""
 
 import re
 

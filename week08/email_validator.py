@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Validate email addresses entered interactively.
+
+Usage:
+    python3 email_validator.py
+    Enter email addresses one at a time; enter STOP to finish.
+"""
 
 import re
 

@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
+"""
+Encrypt text using a Caesar cipher.
 
-text  = input("Text : ")          # original message to encrypt
+Usage:
+    python3 caesar_cipher.py
+    Enter the text and an integer shift when prompted.
+"""
+
+text   = input("Text: ")          # original message to encrypt
 shift = int(input("Shift: ")) % 26  # how many letters to shift; % 26 keeps it in 0-25
 
 result = ""  # build the encrypted string one character at a time

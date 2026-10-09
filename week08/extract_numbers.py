@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Extract and report digit sequences from a line of text.
+
+Usage:
+    python3 extract_numbers.py
+    Enter text when prompted; all numbers, their count, and the first are printed.
+"""
 
 import re
 

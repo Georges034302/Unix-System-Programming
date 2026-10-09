@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Find repeated consecutive words in a sentence.
+
+Usage:
+    python3 repeated_word.py
+    Enter a sentence when prompted; the script reports repeated words.
+"""
 
 import re
 

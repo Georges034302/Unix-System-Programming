@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Analyze entered scores, counting passes and failures and tracking statistics.
+
+Usage:
+    python3 score_analyzer.py
+    Enter scores one at a time; enter -1 to finish.
+"""
 
 count = total = passes = fails = 0
 min_score = max_score = None  # None until the first score is entered

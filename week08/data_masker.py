@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Mask email addresses, IPv4 addresses, and long numeric IDs in text.
+
+Usage:
+    python3 data_masker.py
+    Enter text when prompted; the script prints the masked text.
+"""
 
 import re
 

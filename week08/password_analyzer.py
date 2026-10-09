@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Analyze a password for length, character classes, and strength.
+
+Usage:
+    python3 password_analyzer.py
+    Enter a password when prompted.
+"""
 
 import re
 

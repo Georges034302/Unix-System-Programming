@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Parse and display a user, process ID, and status record.
+
+Usage:
+    python3 record_parser.py
+    Enter a record in the form: user=alice pid=2048 status=running
+"""
 
 import re
 
